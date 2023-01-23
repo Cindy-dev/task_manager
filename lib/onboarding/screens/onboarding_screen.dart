@@ -53,7 +53,7 @@ class OnboardingScreen extends StatelessWidget {
             height: context.screenHeight() / 14,
             alignment: Alignment.center,
             decoration: BoxDecoration(
-                color: AppColors.green, borderRadius: BorderRadius.circular(4)),
+                color: AppColors.green, borderRadius: BorderRadius.circular(5)),
             child: const Text(OnboardingStrings.continueW,
               style: TextStyle(
                 fontSize: 16,
