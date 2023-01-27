@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:task_manager/onboarding/utilities/onboarding_strings.dart';
+import 'package:task_manager/task/view/home_screen.dart';
 import 'package:task_manager/utilities/app_constants/app_colors.dart';
 import 'package:task_manager/utilities/app_constants/app_strings.dart';
+import 'package:task_manager/utilities/device_navigation.dart';
 import 'package:task_manager/utilities/device_size.dart';
 
 class OnboardingScreen extends StatelessWidget {
@@ -47,19 +49,23 @@ class OnboardingScreen extends StatelessWidget {
             ),
           ),
           const Spacer(),
-          Container(
-            margin: const EdgeInsets.symmetric(horizontal: 16),
-            width: double.infinity,
-            height: context.screenHeight() / 14,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-                color: AppColors.green, borderRadius: BorderRadius.circular(5)),
-            child: const Text(OnboardingStrings.continueW,
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-                fontFamily: AppStrings.fontName,
-                color: AppColors.white
+          GestureDetector(
+            onTap: () => navigatePush(context, const HomeScreen()),
+            child: Container(
+              margin: const EdgeInsets.symmetric(horizontal: 16),
+              width: double.infinity,
+              height: context.screenHeight() / 14,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                  color: AppColors.green,
+                  borderRadius: BorderRadius.circular(5)),
+              child: const Text(
+                OnboardingStrings.continueW,
+                style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    fontFamily: AppStrings.fontName,
+                    color: AppColors.white),
               ),
             ),
           ),
