@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:task_manager/task/utilities/task_strings/home_strings.dart';
+import 'package:task_manager/task/widgets/add_new_task.dart';
 import 'package:task_manager/utilities/app_constants/app_colors.dart';
 import '../../utilities/app_constants/app_strings.dart';
 
@@ -62,13 +63,20 @@ class HomeScreen extends StatelessWidget {
                     "Every 5 minutes",
                     style: TextStyle(
                       fontSize: 20,
-                      fontWeight: FontWeight.w400,
+                      fontWeight: FontWeight.w300,
                       fontFamily: AppStrings.fontName,
                     ),
                   ),
                 ],
               )),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          addNewTask(context);
+        },
+        backgroundColor: AppColors.green,
+        child: const Icon(Icons.add),
       ),
     );
   }
