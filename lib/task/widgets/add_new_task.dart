@@ -49,12 +49,20 @@ Future<dynamic> addNewTask(BuildContext context) {
                   height: 50,
                 ),
                 TextFormField(
+                  minLines: 10,
+                    maxLines: 40,
                     decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.all(50),
-                        enabledBorder: OutlineInputBorder(
+                      filled: true,
+                      hintText: AddTaskStrings.hintText,
+                      fillColor: AppColors.gray.withOpacity(0.3),
+                        focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
                             borderSide: const BorderSide(
-                                width: 3, color: AppColors.gray)))),
+                                width: 2, color: AppColors.gray)),
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide:  BorderSide(
+                                width: 2, color: AppColors.gray.withOpacity(0.2))))),
                 ListTile(
                   leading: new Icon(Icons.photo),
                   title: new Text('Photo'),
