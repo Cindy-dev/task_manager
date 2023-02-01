@@ -1,4 +1,3 @@
-import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:task_manager/task/utilities/task_strings/add_task_strings.dart';
@@ -19,33 +18,17 @@ Future<dynamic> addNewTask(BuildContext context) {
       clipBehavior: Clip.antiAliasWithSaveLayer,
       builder: (context) {
         return Container(
+          margin: const EdgeInsets.all(15),
           height: MediaQuery.of(context).size.height,
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                // SfCalendar(
-                //   todayHighlightColor: AppColors.primaryColor,
-                //   view: CalendarView.timelineMonth,
-                //
-                // ),
                 const Icon(
                   Icons.horizontal_rule,
                   size: 60,
                   color: AppColors.gray,
-                ),
-                DateTimePicker(
-                  initialValue: '',
-                  firstDate: DateTime(2000),
-                  lastDate: DateTime(2100),
-                  dateLabelText: 'Date',
-                  onChanged: (val) => print(val),
-                  validator: (val) {
-                    print(val);
-                    return null;
-                  },
-                  onSaved: (val) => print(val),
                 ),
                 const Text(
                   AddTaskStrings.heading,
@@ -55,6 +38,23 @@ Future<dynamic> addNewTask(BuildContext context) {
                     fontFamily: AppStrings.fontName,
                   ),
                 ),
+                const SizedBox(
+                  height: 10,
+                ),
+                SfCalendar(
+                  todayHighlightColor: AppColors.primaryColor,
+                  view: CalendarView.timelineMonth,
+                ),
+                const SizedBox(
+                  height: 50,
+                ),
+                TextFormField(
+                    decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.all(50),
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: const BorderSide(
+                                width: 3, color: AppColors.gray)))),
                 ListTile(
                   leading: new Icon(Icons.photo),
                   title: new Text('Photo'),
