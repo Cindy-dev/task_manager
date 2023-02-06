@@ -9,7 +9,7 @@ import '../../utilities/app_constants/app_strings.dart';
 Future<dynamic> addNewTask(BuildContext context) {
   return showModalBottomSheet(
       context: context,
-      //isScrollControlled: true,
+      isScrollControlled: true,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(20),
@@ -17,14 +17,15 @@ Future<dynamic> addNewTask(BuildContext context) {
       ),
       clipBehavior: Clip.antiAliasWithSaveLayer,
       builder: (context) {
-        return Container(
+        return
+          Container(
           margin: const EdgeInsets.all(15),
           height: MediaQuery.of(context).size.height,
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
+              children: [
                 const Icon(
                   Icons.horizontal_rule,
                   size: 60,
@@ -51,46 +52,20 @@ Future<dynamic> addNewTask(BuildContext context) {
                 TextFormField(
                   minLines: 10,
                     maxLines: 40,
+                    cursorColor: AppColors.primaryColor,
                     decoration: InputDecoration(
                       filled: true,
                       hintText: AddTaskStrings.hintText,
                       fillColor: AppColors.gray.withOpacity(0.3),
                         focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
-                            borderSide: const BorderSide(
-                                width: 2, color: AppColors.gray)),
+                            borderSide: BorderSide(
+                                width: 2, color: AppColors.gray.withOpacity(0.3))),
                         enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
                             borderSide:  BorderSide(
-                                width: 2, color: AppColors.gray.withOpacity(0.2))))),
-                ListTile(
-                  leading: new Icon(Icons.photo),
-                  title: new Text('Photo'),
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                ),
-                ListTile(
-                  leading: new Icon(Icons.music_note),
-                  title: new Text('Music'),
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                ),
-                ListTile(
-                  leading: new Icon(Icons.videocam),
-                  title: new Text('Video'),
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                ),
-                ListTile(
-                  leading: new Icon(Icons.share),
-                  title: new Text('Share'),
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                ),
+                                width: 2, color: AppColors.gray.withOpacity(0.3))))),
+
               ],
             ),
           ),
