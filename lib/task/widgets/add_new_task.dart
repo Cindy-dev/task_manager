@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:task_manager/task/utilities/task_strings/add_task_strings.dart';
+import 'package:task_manager/task/widgets/tile_container.dart';
 import 'package:task_manager/utilities/app_constants/app_colors.dart';
-import 'package:task_manager/utilities/device_size.dart';
-
 import '../../utilities/app_constants/app_strings.dart';
 
 Future<dynamic> addNewTask(BuildContext context) {
@@ -17,8 +16,7 @@ Future<dynamic> addNewTask(BuildContext context) {
       ),
       clipBehavior: Clip.antiAliasWithSaveLayer,
       builder: (context) {
-        return
-          Container(
+        return Container(
           margin: const EdgeInsets.all(15),
           height: MediaQuery.of(context).size.height,
           child: SingleChildScrollView(
@@ -50,22 +48,53 @@ Future<dynamic> addNewTask(BuildContext context) {
                   height: 50,
                 ),
                 TextFormField(
-                  minLines: 10,
+                    minLines: 10,
                     maxLines: 40,
                     cursorColor: AppColors.primaryColor,
                     decoration: InputDecoration(
-                      filled: true,
-                      hintText: AddTaskStrings.hintText,
-                      fillColor: AppColors.gray.withOpacity(0.3),
+                        filled: true,
+                        hintText: AddTaskStrings.hintText,
+                        fillColor: AppColors.gray.withOpacity(0.3),
                         focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
                             borderSide: BorderSide(
-                                width: 2, color: AppColors.gray.withOpacity(0.3))),
+                                width: 2,
+                                color: AppColors.gray.withOpacity(0.3))),
                         enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
-                            borderSide:  BorderSide(
-                                width: 2, color: AppColors.gray.withOpacity(0.3))))),
-
+                            borderSide: BorderSide(
+                                width: 2,
+                                color: AppColors.gray.withOpacity(0.3))))),
+                const SizedBox(
+                  height: 30,
+                ),
+                const TileContainer(
+                  text: 'Task Time',
+                  iconHeader: Icons.alarm,
+                  arrowFwd: Icons.arrow_forward_ios,
+                  time: '4:00 PM',
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                const TileContainer(
+                  text: 'Notification',
+                  iconHeader: Icons.notifications,
+                  arrowFwd: Icons.arrow_forward_ios,
+                  time: 'in 5 min',
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                const TileContainer(
+                  text: 'Repeat',
+                  iconHeader: Icons.repeat,
+                  arrowFwd: Icons.arrow_forward_ios,
+                  time: 'No',
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
               ],
             ),
           ),
