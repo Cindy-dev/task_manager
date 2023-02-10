@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:task_manager/task/utilities/task_strings/add_task_strings.dart';
 import 'package:task_manager/task/widgets/tile_container.dart';
+import 'package:task_manager/utilities/add_task_button.dart';
 import 'package:task_manager/utilities/app_constants/app_colors.dart';
 import 'package:task_manager/utilities/device_size.dart';
 import '../../utilities/app_constants/app_strings.dart';
@@ -98,43 +99,18 @@ Future<dynamic> addNewTask(BuildContext context) {
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      alignment: Alignment.center,
-                      height: context.screenHeight() / 15,
-                      width: context.screenWidth() / 2.5,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          border: Border.all(
-                            color: AppColors.black,
-                          )),
-                      child: const Text(
-                        "Cancel",
-                        style: TextStyle(
-                            color: AppColors.black,
-                            fontSize: 25,
-                            fontWeight: FontWeight.w700,
-                            fontFamily: AppStrings.fontName),
-                      ),
+                  children: const [
+                    AddTaskButton(
+                      text: "Cancel",
+                      textColor: AppColors.black,
+                      containerColor: AppColors.black,
+                      containerColor2: AppColors.white,
                     ),
-                    Container(
-                      alignment: Alignment.center,
-                      height: context.screenHeight() / 15,
-                      width: context.screenWidth() / 2.5,
-                      decoration: BoxDecoration(
-                        color: AppColors.black,
-                          borderRadius: BorderRadius.circular(15),
-                          border: Border.all(
-                            color: AppColors.black,
-                          )),
-                      child: const Text(
-                        "Save task",
-                        style: TextStyle(
-                            color: AppColors.white,
-                            fontSize: 25,
-                            fontWeight: FontWeight.w700,
-                            fontFamily: AppStrings.fontName),
-                      ),
+                    AddTaskButton(
+                      text: "Save task",
+                      textColor: AppColors.white,
+                      containerColor: AppColors.black,
+                      containerColor2: AppColors.black,
                     ),
                   ],
                 ),
