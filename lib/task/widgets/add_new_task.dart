@@ -20,7 +20,7 @@ Future<dynamic> addNewTask(BuildContext context) {
       builder: (context) {
         return Container(
           margin: const EdgeInsets.all(15),
-          height: MediaQuery.of(context).size.height,
+          height: MediaQuery.of(context).size.height / 1.5,
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,

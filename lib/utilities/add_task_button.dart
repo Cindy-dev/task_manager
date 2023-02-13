@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:task_manager/utilities/device_size.dart';
-import 'app_constants/app_colors.dart';
 import 'app_constants/app_strings.dart';
 
 class AddTaskButton extends StatelessWidget {
