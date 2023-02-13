@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:syncfusion_flutter_calendar/calendar.dart';
+//import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:task_manager/task/utilities/task_strings/home_strings.dart';
 import 'package:task_manager/task/widgets/add_new_task.dart';
 import 'package:task_manager/utilities/app_constants/app_colors.dart';
@@ -19,13 +19,13 @@ class HomeScreen extends StatelessWidget {
       backgroundColor: AppColors.white,
       body: Column(
         children: [
-          SfCalendar(
-            todayHighlightColor: AppColors.primaryColor,
-            view: CalendarView.month,
-            monthViewSettings: const MonthViewSettings(
-                appointmentDisplayMode:
-                    MonthAppointmentDisplayMode.appointment),
-          ),
+          // SfCalendar(
+          //   todayHighlightColor: AppColors.primaryColor,
+          //   view: CalendarView.month,
+          //   monthViewSettings: const MonthViewSettings(
+          //       appointmentDisplayMode:
+          //           MonthAppointmentDisplayMode.appointment),
+          // ),
           Container(
             margin: const EdgeInsets.all(16),
             alignment: Alignment.centerLeft,
