@@ -4,12 +4,14 @@ import 'package:task_manager/task/utilities/task_strings/add_task_strings.dart';
 import 'package:task_manager/task/widgets/tile_container.dart';
 import 'package:task_manager/utilities/add_task_button.dart';
 import 'package:task_manager/utilities/app_constants/app_colors.dart';
+import 'package:task_manager/utilities/device_navigation.dart';
 import 'package:task_manager/utilities/device_size.dart';
 import '../../utilities/app_constants/app_strings.dart';
 
 Future<dynamic> addNewTask(BuildContext context) {
   return showModalBottomSheet(
       context: context,
+      isDismissible: true,
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
@@ -26,10 +28,13 @@ Future<dynamic> addNewTask(BuildContext context) {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Icon(
-                  Icons.horizontal_rule,
-                  size: 60,
-                  color: AppColors.gray,
+                GestureDetector(
+                  onVerticalDragUpdate: (_)=> navigatePop(context),
+                  child: const Icon(
+                    Icons.horizontal_rule,
+                    size: 60,
+                    color: AppColors.gray,
+                  ),
                 ),
                 const Text(
                   AddTaskStrings.heading,
