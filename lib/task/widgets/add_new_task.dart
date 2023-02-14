@@ -29,7 +29,7 @@ Future<dynamic> addNewTask(BuildContext context) {
               mainAxisSize: MainAxisSize.min,
               children: [
                 GestureDetector(
-                  onVerticalDragUpdate: (_)=> navigatePop(context),
+                  onVerticalDragUpdate: (_) => navigatePop(context),
                   child: const Icon(
                     Icons.horizontal_rule,
                     size: 60,
@@ -45,14 +45,23 @@ Future<dynamic> addNewTask(BuildContext context) {
                   ),
                 ),
                 const SizedBox(
-                  height: 10,
-                ),
-                // SfCalendar(
-                //   todayHighlightColor: AppColors.primaryColor,
-                //   view: CalendarView.timelineMonth,
-                // ),
-                const SizedBox(
                   height: 50,
+                ),
+                Container(
+                  height: 60,
+                  decoration: BoxDecoration(
+                      color: AppColors.gray.withOpacity(0.3),
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                          width: 2, color: AppColors.gray.withOpacity(0.3))),
+                ),
+                GestureDetector(
+                  child: const Text("Select a Date", style: TextStyle(
+                    fontFamily: AppStrings.fontName, 
+                  ),),
+                ),
+                const SizedBox(
+                  height: 30,
                 ),
                 TextFormField(
                     minLines: 10,
