@@ -6,6 +6,7 @@ import 'package:task_manager/utilities/add_task_button.dart';
 import 'package:task_manager/utilities/app_constants/app_colors.dart';
 import 'package:task_manager/utilities/device_navigation.dart';
 import 'package:task_manager/utilities/device_size.dart';
+import '../../utilities/date_time_impl.dart';
 import '../../utilities/app_constants/app_strings.dart';
 
 Future<dynamic> addNewTask(BuildContext context) {
@@ -47,18 +48,9 @@ Future<dynamic> addNewTask(BuildContext context) {
                 const SizedBox(
                   height: 50,
                 ),
-                Container(
-                  height: 60,
-                  decoration: BoxDecoration(
-                      color: AppColors.gray.withOpacity(0.3),
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(
-                          width: 2, color: AppColors.gray.withOpacity(0.3))),
-                ),
-                GestureDetector(
-                  child: const Text("Select a Date", style: TextStyle(
-                    fontFamily: AppStrings.fontName, 
-                  ),),
+                TaskManagerDateTime(
+                  firstDate: DateTime(2000),
+                  lastDate: DateTime(2100),
                 ),
                 const SizedBox(
                   height: 30,
