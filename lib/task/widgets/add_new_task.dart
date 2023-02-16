@@ -6,7 +6,8 @@ import 'package:task_manager/utilities/add_task_button.dart';
 import 'package:task_manager/utilities/app_constants/app_colors.dart';
 import 'package:task_manager/utilities/device_navigation.dart';
 import 'package:task_manager/utilities/device_size.dart';
-import '../../utilities/date_time_impl.dart';
+import 'package:task_manager/utilities/time_impl.dart';
+import '../../utilities/date_impl.dart';
 import '../../utilities/app_constants/app_strings.dart';
 
 Future<dynamic> addNewTask(BuildContext context) {
@@ -76,13 +77,17 @@ Future<dynamic> addNewTask(BuildContext context) {
                 const SizedBox(
                   height: 30,
                 ),
-
-                
-                const TileContainer(
+                const SizedBox(
+                  height: 10,
+                ),
+                TileContainer(
                   text: 'Task Time',
                   iconHeader: Icons.alarm,
                   arrowFwd: Icons.arrow_forward_ios,
-                  time: '4:00 PM',
+                  action: TaskManagerTime(
+                    firstDate: DateTime(2000),
+                    lastDate: DateTime(2100),
+                  ),
                 ),
                 const SizedBox(
                   height: 30,
@@ -91,7 +96,14 @@ Future<dynamic> addNewTask(BuildContext context) {
                   text: 'Notification',
                   iconHeader: Icons.notifications,
                   arrowFwd: Icons.arrow_forward_ios,
-                  time: 'in 5 min',
+                  action: Text(
+                    'in 5 min',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: AppStrings.fontName,
+                    ),
+                  ),
                 ),
                 const SizedBox(
                   height: 30,
@@ -100,7 +112,14 @@ Future<dynamic> addNewTask(BuildContext context) {
                   text: 'Repeat',
                   iconHeader: Icons.repeat,
                   arrowFwd: Icons.arrow_forward_ios,
-                  time: 'No',
+                  action: Text(
+                    'No',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: AppStrings.fontName,
+                    ),
+                  ),
                 ),
                 const SizedBox(
                   height: 30,

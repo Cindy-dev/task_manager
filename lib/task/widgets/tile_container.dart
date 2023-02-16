@@ -6,13 +6,13 @@ import '../../utilities/app_constants/app_strings.dart';
 class TileContainer extends StatelessWidget {
   final IconData iconHeader;
   final String text;
-  final String time;
+  final Widget action;
   final IconData arrowFwd;
   const TileContainer(
       {Key? key,
       required this.iconHeader,
       required this.text,
-      required this.time,
+      required this.action,
       required this.arrowFwd})
       : super(key: key);
 
@@ -47,15 +47,9 @@ class TileContainer extends StatelessWidget {
               ],
             ),
             Row(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
-                  time,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                    fontFamily: AppStrings.fontName,
-                  ),
-                ),
+               action,
                 const SizedBox(width: 10,),
                 Icon(
                   arrowFwd,
