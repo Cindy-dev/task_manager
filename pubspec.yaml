@@ -29,8 +29,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  #syncfusion_flutter_calendar: ^20.4.44
-  date_time_picker: ^2.1.0
   date_picker_timeline: ^1.2.3
   flutter_localization: ^0.1.10
 
