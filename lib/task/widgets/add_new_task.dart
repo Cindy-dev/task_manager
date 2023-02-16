@@ -87,6 +87,7 @@ Future<dynamic> addNewTask(BuildContext context) {
                   action: TaskManagerTime(
                     firstDate: DateTime(2000),
                     lastDate: DateTime(2100),
+                    type: TaskManagerTimePickerType.time,
                   ),
                 ),
                 const SizedBox(
