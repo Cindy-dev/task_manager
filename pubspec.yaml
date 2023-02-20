@@ -29,8 +29,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  date_picker_timeline: ^1.2.3
   flutter_localization: ^0.1.10
+  freezed: ^2.3.2
+  build_runner: ^2.3.3
+  flutter_riverpod: ^2.2.0
+
 
 
   # The following adds the Cupertino Icons font to your application.

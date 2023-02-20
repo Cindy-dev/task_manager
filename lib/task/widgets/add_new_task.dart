@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-//import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:task_manager/task/utilities/task_strings/add_task_strings.dart';
 import 'package:task_manager/task/widgets/tile_container.dart';
 import 'package:task_manager/utilities/add_task_button.dart';
 import 'package:task_manager/utilities/app_constants/app_colors.dart';
 import 'package:task_manager/utilities/device_navigation.dart';
-import 'package:task_manager/utilities/device_size.dart';
 import 'package:task_manager/utilities/time_impl.dart';
 import '../../utilities/date_impl.dart';
 import '../../utilities/app_constants/app_strings.dart';
