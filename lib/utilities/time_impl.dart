@@ -1,5 +1,4 @@
 library date_time_picker;
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
@@ -162,18 +161,8 @@ class TaskManagerTime extends FormField<String> {
               ..applyDefaults(
                 Theme.of(field.context).inputDecorationTheme,
               );
-            // Container(
-            //   height: 60,
-            //   margin: const EdgeInsets.only(bottom: 10),
-            //   decoration: BoxDecoration(
-            //       color: AppColors.gray.withOpacity(0.3),
-            //       borderRadius: BorderRadius.circular(10),
-            //       border: Border.all(
-            //           width: 2, color: AppColors.gray.withOpacity(0.3))),
-            //   ),
-            // 3
-            //
             return Container(
+              alignment: Alignment.center,
               width: 150,
               child: TextField(
                 readOnly: true,
@@ -181,14 +170,12 @@ class TaskManagerTime extends FormField<String> {
                 controller: loCtrl,
                 decoration: InputDecoration(
                     hintText: "Select a Time",
-                    hintStyle: TextStyle(
+                    hintStyle: const TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w500,
                       color: AppColors.black,
                       fontFamily: AppStrings.fontName,
                     ),
-                    //filled: true,
-                    //fillColor: AppColors.gray.withOpacity(0.3),
                     focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: BorderSide(
@@ -200,9 +187,6 @@ class TaskManagerTime extends FormField<String> {
             )
              )
             ),
-                //  loDecoration.copyWith(
-                //   errorText: field.errorText,
-                // ),
                 focusNode: focusNode,
                 keyboardType: TextInputType.datetime,
                 textInputAction: textInputAction,
