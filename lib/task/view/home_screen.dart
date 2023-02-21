@@ -73,7 +73,8 @@ class HomeScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          addNewTask(context);
+          showSheet(context);
+          //addNewTask(context);
         },
         backgroundColor: AppColors.green,
         child: const Icon(Icons.add),
