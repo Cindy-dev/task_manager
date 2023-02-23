@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-//import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:task_manager/task/utilities/task_strings/home_strings.dart';
 import 'package:task_manager/task/widgets/add_new_task.dart';
 import 'package:task_manager/utilities/app_constants/app_colors.dart';
+import 'package:task_manager/utilities/device_size.dart';
 import '../../utilities/app_constants/app_strings.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -10,12 +10,8 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final height = context.screenHeight();
     return Scaffold(
-      appBar: AppBar(
-        foregroundColor: AppColors.black,
-        backgroundColor: AppColors.white,
-        elevation: 0,
-      ),
       backgroundColor: AppColors.white,
       body: Column(
         children: [
@@ -26,6 +22,7 @@ class HomeScreen extends StatelessWidget {
           //       appointmentDisplayMode:
           //           MonthAppointmentDisplayMode.appointment),
           // ),
+          SizedBox(height: height * .065,),
           Container(
             margin: const EdgeInsets.all(16),
             alignment: Alignment.centerLeft,
