@@ -15,13 +15,6 @@ class HomeScreen extends StatelessWidget {
       backgroundColor: AppColors.white,
       body: Column(
         children: [
-          // SfCalendar(
-          //   todayHighlightColor: AppColors.primaryColor,
-          //   view: CalendarView.month,
-          //   monthViewSettings: const MonthViewSettings(
-          //       appointmentDisplayMode:
-          //           MonthAppointmentDisplayMode.appointment),
-          // ),
           SizedBox(height: height * .065,),
           Container(
             margin: const EdgeInsets.all(16),
