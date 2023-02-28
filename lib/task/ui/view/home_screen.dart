@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:task_manager/task/utilities/task_strings/home_strings.dart';
-import 'package:task_manager/task/widgets/add_new_task.dart';
 import 'package:task_manager/utilities/app_constants/app_colors.dart';
 import 'package:task_manager/utilities/device_size.dart';
-import '../../utilities/app_constants/app_strings.dart';
+import '../../../utilities/app_constants/app_strings.dart';
+import '../widgets/add_new_task.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -64,7 +64,6 @@ class HomeScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showSheet(context);
-          //addNewTask(context);
         },
         backgroundColor: AppColors.green,
         child: const Icon(Icons.add),

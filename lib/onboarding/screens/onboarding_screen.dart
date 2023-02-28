@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:task_manager/onboarding/utilities/onboarding_strings.dart';
-import 'package:task_manager/task/view/home_screen.dart';
 import 'package:task_manager/utilities/app_constants/app_colors.dart';
 import 'package:task_manager/utilities/app_constants/app_strings.dart';
 import 'package:task_manager/utilities/device_navigation.dart';
 import 'package:task_manager/utilities/device_size.dart';
+
+import '../../task/ui/view/home_screen.dart';
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({Key? key}) : super(key: key);

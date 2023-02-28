@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:sliding_sheet/sliding_sheet.dart';
 import 'package:task_manager/task/utilities/task_strings/add_task_strings.dart';
-import 'package:task_manager/task/widgets/tile_container.dart';
 import 'package:task_manager/utilities/add_task_button.dart';
 import 'package:task_manager/utilities/app_constants/app_colors.dart';
 import 'package:task_manager/utilities/time_impl.dart';
-import '../../utilities/date_impl.dart';
-import '../../utilities/app_constants/app_strings.dart';
+import '../../../utilities/app_constants/app_strings.dart';
+import '../../../utilities/date_impl.dart';
+import 'tile_container.dart';
+
 
 Future showSheet(BuildContext context) => showSlidingBottomSheet(context,
     builder: (context) => const SlidingSheetDialog(
