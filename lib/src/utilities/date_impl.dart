@@ -1,10 +1,9 @@
 library date_time_picker;
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
-import 'package:task_manager/utilities/app_constants/app_colors.dart';
-import 'package:task_manager/utilities/app_constants/app_strings.dart';
+import '../../../src/utilities/app_constants/app_colors.dart';
+import '../../../src/utilities/app_constants/app_strings.dart';
 
 enum TaskManagerDateTimePickerType { date, time, dateTime, dateTimeSeparate }
 

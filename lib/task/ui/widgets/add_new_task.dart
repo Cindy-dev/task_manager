@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:sliding_sheet/sliding_sheet.dart';
 import 'package:task_manager/task/utilities/task_strings/add_task_strings.dart';
-import 'package:task_manager/utilities/add_task_button.dart';
-import 'package:task_manager/utilities/app_constants/app_colors.dart';
-import 'package:task_manager/utilities/time_impl.dart';
-import '../../../utilities/app_constants/app_strings.dart';
-import '../../../utilities/date_impl.dart';
+import '../../../src/utilities/add_task_button.dart';
+import '../../../src/utilities/app_constants/app_colors.dart';
+import '../../../src/utilities/app_constants/app_strings.dart';
+import '../../../src/utilities/date_impl.dart';
+import '../../../src/utilities/time_impl.dart';
 import 'tile_container.dart';
 
 

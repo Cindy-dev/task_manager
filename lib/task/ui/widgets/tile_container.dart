@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:task_manager/utilities/device_size.dart';
-import '../../../utilities/app_constants/app_colors.dart';
-import '../../../utilities/app_constants/app_strings.dart';
+import 'package:task_manager/src/utilities/device_size.dart';
+import '../../../src/utilities/app_constants/app_colors.dart';
+import '../../../src/utilities/app_constants/app_strings.dart';
 
 class TileContainer extends StatelessWidget {
   final IconData iconHeader;

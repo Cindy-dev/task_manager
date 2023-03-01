@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:task_manager/utilities/app_constants/app_colors.dart';
-import 'app_constants/app_strings.dart';
+import '../../../src/utilities/app_constants/app_colors.dart';
+import '../../../src/utilities/app_constants/app_strings.dart';
 import 'device_navigation.dart';
 
 void dialog(BuildContext context, String error, String title) {
