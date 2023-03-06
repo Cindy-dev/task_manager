@@ -1,17 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sliding_sheet/sliding_sheet.dart';
-import 'package:task_manager/src/utilities/device_navigation.dart';
 import 'package:task_manager/task/utilities/task_strings/home_strings.dart';
 import 'package:task_manager/src/utilities/device_size.dart';
 import '../../../src/utilities/add_task_button.dart';
 import '../../../src/utilities/app_constants/app_colors.dart';
 import '../../../src/utilities/app_constants/app_strings.dart';
-import '../../../src/utilities/cupertino_time_picker.dart';
 import '../../../src/utilities/date_impl.dart';
 import '../../../src/utilities/time_impl.dart';
 import '../../utilities/task_strings/add_task_strings.dart';
-import '../widgets/add_new_task.dart';
 import '../widgets/tile_container.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -114,9 +111,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   Future showSheet() => showSlidingBottomSheet(context,
       builder: (context) => SlidingSheetDialog(
             cornerRadius: 16,
-            padding: EdgeInsets.all(15),
+            padding: const EdgeInsets.all(15),
             avoidStatusBar: true,
-            snapSpec: SnapSpec(
+            snapSpec: const SnapSpec(
               snappings: [0.4, 0.7, 1],
               initialSnap: 0.7,
             ),
@@ -124,21 +121,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           ));
 
   String? time;
-  Duration initialtimer = new Duration();
-
-  Future<void> bottomSheet(BuildContext context, Widget child,
-      {double? height}) {
-    return showModalBottomSheet(
-        isScrollControlled: false,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(13), topRight: Radius.circular(13))),
-        backgroundColor: Colors.white,
-        context: context,
-        builder: (context) => Container(
-            height: height ?? MediaQuery.of(context).size.height / 3,
-            child: child));
-  }
+  Duration initialtimer = const Duration();
 
   Widget timePicker() {
     return CupertinoTimerPicker(
@@ -149,15 +132,25 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       onTimerDurationChanged: (Duration changedtimer) {
         setState(() {
           initialtimer = changedtimer;
-          time = changedtimer.inHours.toString() +
-              ' hrs ' +
-              (changedtimer.inMinutes % 60).toString() +
-              ' mins ' +
-              (changedtimer.inSeconds % 60).toString() +
-              ' secs';
+          time =
+              '${changedtimer.inHours} hrs ${changedtimer.inMinutes % 60} mins ${changedtimer.inSeconds % 60} secs';
         });
       },
     );
+  }
+
+  Future<void> bottomSheet(BuildContext context, Widget child,
+      {double? height}) {
+    return showModalBottomSheet(
+        isScrollControlled: false,
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(13), topRight: Radius.circular(13))),
+        backgroundColor: Colors.white,
+        context: context,
+        builder: (context) => Container(
+            height: height ?? MediaQuery.of(context).size.height / 3,
+            child: child));
   }
 
   Widget buildSheet(context, state) {
@@ -226,17 +219,17 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           const SizedBox(
             height: 30,
           ),
+          time == null ? Container() : Text('$time'),
           TileContainer(
             text: 'Notification',
             iconHeader: Icons.notifications,
             arrowFwd: Icons.arrow_forward_ios,
             action: InkWell(
               onTap: () {
-                  bottomSheet(context, timePicker());
-                print(time.toString());
+                bottomSheet(context, timePicker());
               },
               child: time == null
-                  ? Text(
+                  ? const Text(
                       'Select Time',
                       style: TextStyle(
                         fontSize: 20,
@@ -245,15 +238,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       ),
                     )
                   : Text('$time'),
-
-              // const Text(
-              //   'Select Time',
-              //   style: TextStyle(
-              //     fontSize: 20,
-              //     fontWeight: FontWeight.w600,
-              //     fontFamily: AppStrings.fontName,
-              //   ),
-              // ),
             ),
           ),
           const SizedBox(
