@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sliding_sheet/sliding_sheet.dart';
 import 'package:task_manager/src/utilities/cupertino_time_picker.dart';
-import 'package:task_manager/src/utilities/device_navigation.dart';
 import 'package:task_manager/task/utilities/task_strings/add_task_strings.dart';
 import '../../../src/utilities/add_task_button.dart';
 import '../../../src/utilities/app_constants/app_colors.dart';
@@ -10,17 +9,21 @@ import '../../../src/utilities/date_impl.dart';
 import '../../../src/utilities/time_impl.dart';
 import 'tile_container.dart';
 
-Future showSheet(BuildContext context,) => showSlidingBottomSheet(context,
-    builder: (context) => const SlidingSheetDialog(
-          cornerRadius: 16,
-          padding: EdgeInsets.all(15),
-          avoidStatusBar: true,
-          snapSpec: SnapSpec(
-            snappings: [0.4, 0.7, 1],
-            initialSnap: 0.7,
-          ),
-          builder: buildSheet,
-        ));
+
+Future showSheet(
+  BuildContext context,
+) =>
+    showSlidingBottomSheet(context,
+        builder: (context) => const SlidingSheetDialog(
+              cornerRadius: 16,
+              padding: EdgeInsets.all(15),
+              avoidStatusBar: true,
+              snapSpec: SnapSpec(
+                snappings: [0.4, 0.7, 1],
+                initialSnap: 0.7,
+              ),
+              builder: buildSheet,
+            ));
 
 Widget buildSheet(context, state) {
   final impl = Impl();
@@ -97,6 +100,14 @@ Widget buildSheet(context, state) {
             onTap: () {
               impl.bottomSheet(context, impl.timePicker((p0) {
                 (Duration changedtimer) {
+                  impl.initialtimer = changedtimer;
+                  impl.time = changedtimer.inHours.toString() +
+                      ' hrs ' +
+                      (changedtimer.inMinutes % 60).toString() +
+                      ' mins ' +
+                      (changedtimer.inSeconds % 60).toString() +
+                      ' secs';
+                  print(impl.initialtimer);
                   // setState(() {
                   //   impl.initialtimer = changedtimer;
                   //   impl.time = changedtimer.inHours.toString() +
