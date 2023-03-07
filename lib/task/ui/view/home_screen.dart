@@ -1,15 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:sliding_sheet/sliding_sheet.dart';
-import 'package:task_manager/task/utilities/task_strings/home_strings.dart';
-import 'package:task_manager/src/utilities/device_size.dart';
-import '../../../src/utilities/add_task_button.dart';
-import '../../../src/utilities/app_constants/app_colors.dart';
-import '../../../src/utilities/app_constants/app_strings.dart';
-import '../../../src/utilities/date_impl.dart';
-import '../../../src/utilities/time_impl.dart';
-import '../../utilities/task_strings/add_task_strings.dart';
-import '../widgets/tile_container.dart';
+import 'package:task_manager/task/utilities/task_strings/add_task_imports.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -18,24 +8,9 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
-  late AnimationController _animationController;
-
-  @override
-  void initState() {
-    super.initState();
-    _animationController = AnimationController(
-      duration: const Duration(seconds: 1),
-      vsync: this,
-    );
-    _animationController.forward();
-  }
-
-  @override
-  void dispose() {
-    _animationController.dispose();
-    super.dispose();
-  }
+class _HomeScreenState extends State<HomeScreen> {
+  String? time;
+  Duration initialtimer = const Duration();
 
   @override
   Widget build(BuildContext context) {
@@ -59,70 +34,19 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               ),
             ),
           ),
-          SlideTransition(
-            position: Tween<Offset>(
-              begin: const Offset(0, 1),
-              end: Offset.zero,
-            ).animate(_animationController),
-            child: Container(
-                margin: const EdgeInsets.all(16),
-                padding: const EdgeInsets.all(16),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    color: AppColors.gray.withOpacity(0.5),
-                    borderRadius: BorderRadius.circular(15)),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
-                    Text(
-                      "Text Uchechukwu",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
-                        fontFamily: AppStrings.fontName,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      "Every 5 minutes",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w300,
-                        fontFamily: AppStrings.fontName,
-                      ),
-                    ),
-                  ],
-                )),
-          ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          showSheet();
+          showSheet(context, buildSheet);
         },
         backgroundColor: AppColors.green,
         child: const Icon(Icons.add),
       ),
-    ); // This is the result.
+    );
   }
 
-  Future showSheet() => showSlidingBottomSheet(context,
-      builder: (context) => SlidingSheetDialog(
-            cornerRadius: 16,
-            padding: const EdgeInsets.all(15),
-            avoidStatusBar: true,
-            snapSpec: const SnapSpec(
-              snappings: [0.4, 0.7, 1],
-              initialSnap: 0.7,
-            ),
-            builder: buildSheet,
-          ));
-
-  String? time;
-  Duration initialtimer = const Duration();
-
+  //cupertino time picker for the notification implementation
   Widget timePicker() {
     return CupertinoTimerPicker(
       mode: CupertinoTimerPickerMode.hms,
@@ -139,20 +63,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     );
   }
 
-  Future<void> bottomSheet(BuildContext context, Widget child,
-      {double? height}) {
-    return showModalBottomSheet(
-        isScrollControlled: false,
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(13), topRight: Radius.circular(13))),
-        backgroundColor: Colors.white,
-        context: context,
-        builder: (context) => Container(
-            height: height ?? MediaQuery.of(context).size.height / 3,
-            child: child));
-  }
-
+//add task bottom sheet widgets/ui
   Widget buildSheet(context, state) {
     return Material(
       child: Column(
@@ -184,22 +95,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           const SizedBox(
             height: 30,
           ),
-          TextFormField(
-              minLines: 10,
-              maxLines: 40,
-              cursorColor: AppColors.primaryColor,
-              decoration: InputDecoration(
-                  filled: true,
-                  hintText: AddTaskStrings.hintText,
-                  fillColor: AppColors.gray.withOpacity(0.3),
-                  focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
-                          width: 2, color: AppColors.gray.withOpacity(0.3))),
-                  enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
-                          width: 2, color: AppColors.gray.withOpacity(0.3))))),
+          addTextField(),
           const SizedBox(
             height: 30,
           ),
