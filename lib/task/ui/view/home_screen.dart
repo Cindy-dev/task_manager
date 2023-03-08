@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:task_manager/task/ui/widgets/task_list.dart';
 import 'package:task_manager/task/utilities/task_strings/add_task_imports.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -34,6 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
+          const TaskList()
         ],
       ),
       floatingActionButton: FloatingActionButton(
