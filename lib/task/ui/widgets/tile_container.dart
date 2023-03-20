@@ -35,7 +35,9 @@ class TileContainer extends StatelessWidget {
                   iconHeader,
                   color: AppColors.black,
                 ),
-                const SizedBox(width: 10,),
+                const SizedBox(
+                  width: 10,
+                ),
                 Text(
                   text,
                   style: const TextStyle(
@@ -46,16 +48,23 @@ class TileContainer extends StatelessWidget {
                 ),
               ],
             ),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-               action,
-                const SizedBox(width: 10,),
-                Icon(
-                  arrowFwd,
-                  color: AppColors.black,
-                ),
-              ],
+            const SizedBox(
+              width: 10,
+            ),
+            Expanded(
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Expanded(child: action),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                   Icon(
+                      arrowFwd,
+                      color: AppColors.black,
+                    ),
+                ],
+              ),
             )
           ],
         ),

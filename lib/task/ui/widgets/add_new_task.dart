@@ -4,23 +4,35 @@ import '../../../src/utilities/app_constants/app_colors.dart';
 import '../../utilities/task_strings/add_task_strings.dart';
 
 // implementing a text field widget to write task
-Widget addTextField() {
-  return TextFormField(
-      minLines: 10,
-      maxLines: 40,
-      cursorColor: AppColors.primaryColor,
-      decoration: InputDecoration(
-          filled: true,
-          hintText: AddTaskStrings.hintText,
-          fillColor: AppColors.gray.withOpacity(0.3),
-          focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide:
-                  BorderSide(width: 2, color: AppColors.gray.withOpacity(0.3))),
-          enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(
-                  width: 2, color: AppColors.gray.withOpacity(0.3)))));
+class AddTextField extends StatefulWidget {
+  final TextEditingController controller;
+  const AddTextField({Key? key, required this.controller}) : super(key: key);
+
+  @override
+  State<AddTextField> createState() => _AddTextFieldState();
+}
+
+class _AddTextFieldState extends State<AddTextField> {
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+        controller: widget.controller,
+        minLines: 10,
+        maxLines: 40,
+        cursorColor: AppColors.primaryColor,
+        decoration: InputDecoration(
+            filled: true,
+            hintText: AddTaskStrings.hintText,
+            fillColor: AppColors.gray.withOpacity(0.3),
+            focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(
+                    width: 2, color: AppColors.gray.withOpacity(0.3))),
+            enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(
+                    width: 2, color: AppColors.gray.withOpacity(0.3)))));
+  }
 }
 
 //implementation to show sliding bottom sheet for adding new task
@@ -37,4 +49,3 @@ Future showSheet(BuildContext context,
               ),
               builder: builder,
             ));
-

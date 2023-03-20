@@ -1,4 +1,5 @@
 library date_time_picker;
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
@@ -84,178 +85,177 @@ class TaskManagerTime extends FormField<String> {
         assert(maxLines > 0),
         assert(minLines == null || minLines > 0),
         assert(
-        (minLines == null) || (maxLines >= minLines),
-        "minLines can't be greater than maxLines",
+          (minLines == null) || (maxLines >= minLines),
+          "minLines can't be greater than maxLines",
         ),
         assert(
-        !expands || (minLines == null),
-        'minLines and maxLines must be null when expands is true.',
+          !expands || (minLines == null),
+          'minLines and maxLines must be null when expands is true.',
         ),
         assert(
-        !obscureText || maxLines == 1,
-        'Obscured fields cannot be multiline.',
+          !obscureText || maxLines == 1,
+          'Obscured fields cannot be multiline.',
         ),
         assert(maxLength == null || maxLength > 0),
         super(
-        key: key,
-        initialValue:
-        controller != null ? controller.text : (initialValue ?? ''),
-        onSaved: onSaved,
-        validator: validator,
-        autovalidateMode: autovalidate
-            ? AutovalidateMode.always
-            : AutovalidateMode.disabled,
-        enabled: enabled,
-        builder: (FormFieldState<String> field) {
-          final state = field as _DateTimePickerState;
+          key: key,
+          initialValue:
+              controller != null ? controller.text : (initialValue ?? ''),
+          onSaved: onSaved,
+          validator: validator,
+          autovalidateMode: autovalidate
+              ? AutovalidateMode.always
+              : AutovalidateMode.disabled,
+          enabled: enabled,
+          builder: (FormFieldState<String> field) {
+            final state = field as _DateTimePickerState;
 
-          void onChangedHandler(String value) {
-            if (onChanged != null) {
-              onChanged(value);
+            void onChangedHandler(String value) {
+              if (onChanged != null) {
+                onChanged(value);
+              }
+              field.didChange(value);
             }
-            field.didChange(value);
-          }
 
-          Widget buildField(TaskManagerTimePickerType peType) {
-            GestureTapCallback lfOnTap;
-            TextEditingController loCtrl;
-            InputDecoration loDecoration;
+            Widget buildField(TaskManagerTimePickerType peType) {
+              GestureTapCallback lfOnTap;
+              TextEditingController loCtrl;
+              InputDecoration loDecoration;
 
-            switch (peType) {
-              case TaskManagerTimePickerType.time:
-                lfOnTap = state._showTimePickerDialog;
-                loCtrl = state._timeLabelController;
-                loDecoration = InputDecoration(
-                  labelText: timeLabelText,
-                  icon: icon,
-                  hintText: timeHintText,
-                );
-
-                if (type == TaskManagerTimePickerType.dateTimeSeparate) {
+              switch (peType) {
+                case TaskManagerTimePickerType.time:
+                  lfOnTap = state._showTimePickerDialog;
+                  loCtrl = state._timeLabelController;
                   loDecoration = InputDecoration(
                     labelText: timeLabelText,
+                    icon: icon,
                     hintText: timeHintText,
                   );
-                }
-                break;
-              case TaskManagerTimePickerType.dateTime:
-                lfOnTap = state._showDateTimePickerDialog;
-                loCtrl = state._dateLabelController;
-                loDecoration = InputDecoration(
-                  labelText: dateLabelText,
-                  icon: icon,
-                  hintText: dateHintText,
+
+                  if (type == TaskManagerTimePickerType.dateTimeSeparate) {
+                    loDecoration = InputDecoration(
+                      labelText: timeLabelText,
+                      hintText: timeHintText,
+                    );
+                  }
+                  break;
+                case TaskManagerTimePickerType.dateTime:
+                  lfOnTap = state._showDateTimePickerDialog;
+                  loCtrl = state._dateLabelController;
+                  loDecoration = InputDecoration(
+                    labelText: dateLabelText,
+                    icon: icon,
+                    hintText: dateHintText,
+                  );
+                  break;
+                default:
+                  lfOnTap = state._showDatePickerDialog;
+                  loCtrl = state._dateLabelController;
+                  loDecoration = InputDecoration(
+                    labelText: dateLabelText,
+                    icon: icon,
+                    hintText: dateHintText,
+                  );
+              }
+
+              loDecoration = decoration ?? loDecoration
+                ..applyDefaults(
+                  Theme.of(field.context).inputDecorationTheme,
                 );
-                break;
-              default:
-                lfOnTap = state._showDatePickerDialog;
-                loCtrl = state._dateLabelController;
-                loDecoration = InputDecoration(
-                  labelText: dateLabelText,
-                  icon: icon,
-                  hintText: dateHintText,
-                );
+              return Container(
+                alignment: Alignment.center,
+                width: 150,
+                child: TextField(
+                  readOnly: true,
+                  onTap: readOnly ? null : lfOnTap,
+                  controller: loCtrl,
+                  decoration: InputDecoration(
+                      hintText: "Select Task Time",
+                      hintStyle: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                        color: AppColors.black,
+                        fontFamily: AppStrings.fontName,
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(
+                              width: 0,
+                              color: AppColors.gray.withOpacity(0.3))),
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(
+                              width: 0,
+                              color: AppColors.gray.withOpacity(0.3)))),
+                  focusNode: focusNode,
+                  keyboardType: TextInputType.datetime,
+                  textInputAction: textInputAction,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    color: AppColors.black,
+                    fontWeight: FontWeight.w500,
+                    fontFamily: AppStrings.fontName,
+                  ),
+                  strutStyle: strutStyle,
+                  textAlign: TextAlign.center,
+                  textAlignVertical: textAlignVertical,
+                  //textDirection: textDirection,
+                  textCapitalization: textCapitalization,
+                  autofocus: autofocus,
+                  toolbarOptions: toolbarOptions,
+                  showCursor: showCursor,
+                  obscureText: obscureText,
+                  autocorrect: autocorrect,
+                  smartDashesType: smartDashesType ??
+                      (obscureText
+                          ? SmartDashesType.disabled
+                          : SmartDashesType.enabled),
+                  smartQuotesType: smartQuotesType ??
+                      (obscureText
+                          ? SmartQuotesType.disabled
+                          : SmartQuotesType.enabled),
+                  enableSuggestions: enableSuggestions,
+                  maxLengthEnforcement: maxLengthEnforcement,
+                  maxLines: maxLines,
+                  minLines: minLines,
+                  expands: expands,
+                  maxLength: maxLength,
+                  onChanged: onChangedHandler,
+                  onEditingComplete: onEditingComplete,
+                  onSubmitted: onFieldSubmitted,
+                  inputFormatters: inputFormatters,
+                  enabled: enabled,
+                  cursorWidth: cursorWidth,
+                  cursorRadius: cursorRadius,
+                  cursorColor: cursorColor,
+                  scrollPadding: scrollPadding,
+                  scrollPhysics: scrollPhysics,
+                  keyboardAppearance: keyboardAppearance,
+                  enableInteractiveSelection: enableInteractiveSelection,
+                  buildCounter: buildCounter,
+                ),
+              );
             }
 
-            loDecoration = decoration ?? loDecoration
-              ..applyDefaults(
-                Theme.of(field.context).inputDecorationTheme,
-              );
-            return Container(
-              alignment: Alignment.center,
-              width: 150,
-              child: TextField(
-                readOnly: true,
-                onTap: readOnly ? null : lfOnTap,
-                controller: loCtrl,
-                decoration: InputDecoration(
-                    hintText: "Select a Time",
-                    hintStyle: const TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w500,
-                      color: AppColors.black,
-                      fontFamily: AppStrings.fontName,
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                            width: 0, color: AppColors.gray.withOpacity(0.3))),
-                    enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                            width: 0, color: AppColors.gray.withOpacity(0.3)
-            )
-             )
-            ),
-                focusNode: focusNode,
-                keyboardType: TextInputType.datetime,
-                textInputAction: textInputAction,
-                style: const TextStyle(
-                  fontSize: 15,
-                  color: AppColors.black,
-                  fontFamily: AppStrings.fontName,
-                ),
-                strutStyle: strutStyle,
-                textAlign: textAlign,
-                textAlignVertical: textAlignVertical,
-                //textDirection: textDirection,
-                textCapitalization: textCapitalization,
-                autofocus: autofocus,
-                toolbarOptions: toolbarOptions,
-                showCursor: showCursor,
-                obscureText: obscureText,
-                autocorrect: autocorrect,
-                smartDashesType: smartDashesType ??
-                    (obscureText
-                        ? SmartDashesType.disabled
-                        : SmartDashesType.enabled),
-                smartQuotesType: smartQuotesType ??
-                    (obscureText
-                        ? SmartQuotesType.disabled
-                        : SmartQuotesType.enabled),
-                enableSuggestions: enableSuggestions,
-                maxLengthEnforcement: maxLengthEnforcement,
-                maxLines: maxLines,
-                minLines: minLines,
-                expands: expands,
-                maxLength: maxLength,
-                onChanged: onChangedHandler,
-                onEditingComplete: onEditingComplete,
-                onSubmitted: onFieldSubmitted,
-                inputFormatters: inputFormatters,
-                enabled: enabled,
-                cursorWidth: cursorWidth,
-                cursorRadius: cursorRadius,
-                cursorColor: cursorColor,
-                scrollPadding: scrollPadding,
-                scrollPhysics: scrollPhysics,
-                keyboardAppearance: keyboardAppearance,
-                enableInteractiveSelection: enableInteractiveSelection,
-                buildCounter: buildCounter,
-              ),
-            );
-          }
-
-          switch (type) {
-            case TaskManagerTimePickerType.time:
-              return buildField(TaskManagerTimePickerType.time);
-            case TaskManagerTimePickerType.dateTime:
-              return buildField(TaskManagerTimePickerType.dateTime);
-            case TaskManagerTimePickerType.dateTimeSeparate:
-              return Row(children: <Widget>[
-                Expanded(
-                    child: buildField(TaskManagerTimePickerType.date)),
-                const SizedBox(width: 15),
-                SizedBox(
-                  width: timeFieldWidth ?? 100,
-                  child: buildField(TaskManagerTimePickerType.time),
-                )
-              ]);
-            default:
-              return buildField(TaskManagerTimePickerType.date);
-          }
-        },
-      );
+            switch (type) {
+              case TaskManagerTimePickerType.time:
+                return buildField(TaskManagerTimePickerType.time);
+              case TaskManagerTimePickerType.dateTime:
+                return buildField(TaskManagerTimePickerType.dateTime);
+              case TaskManagerTimePickerType.dateTimeSeparate:
+                return Row(children: <Widget>[
+                  Expanded(child: buildField(TaskManagerTimePickerType.date)),
+                  const SizedBox(width: 15),
+                  SizedBox(
+                    width: timeFieldWidth ?? 100,
+                    child: buildField(TaskManagerTimePickerType.time),
+                  )
+                ]);
+              default:
+                return buildField(TaskManagerTimePickerType.date);
+            }
+          },
+        );
 
   /// The DateTimePicker type:
   /// [date], [time], [dateTime] or [dateTimeSeparate].

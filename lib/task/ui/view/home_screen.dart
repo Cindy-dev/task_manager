@@ -12,6 +12,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   String? time;
   Duration initialtimer = const Duration();
+  TextEditingController taskDescriptionController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -78,56 +79,62 @@ class _HomeScreenState extends State<HomeScreen> {
                 lastDate: DateTime(2100),
               ),
               gap(),
-              addTextField(),
+              AddTextField(controller: taskDescriptionController),
               gap(),
-              FittedBox(
-                child: TileContainer(
-                  text: 'Task Time',
-                  iconHeader: Icons.alarm,
-                  arrowFwd: Icons.arrow_forward_ios,
-                  action: TaskManagerTime(
-                    firstDate: DateTime(2000),
-                    lastDate: DateTime(2100),
-                    type: TaskManagerTimePickerType.time,
-                  ),
+              TileContainer(
+                text: 'Task Time',
+                iconHeader: Icons.alarm,
+                arrowFwd: Icons.arrow_forward_ios,
+                action: TaskManagerTime(
+                  firstDate: DateTime(2000),
+                  lastDate: DateTime(2100),
+                  type: TaskManagerTimePickerType.time,
                 ),
               ),
               gap(),
-              FittedBox(
-                child: TileContainer(
-                  text: 'Notification',
-                  iconHeader: Icons.notifications,
-                  arrowFwd: Icons.arrow_forward_ios,
-                  action: InkWell(
-                    onTap: () {
-                      bottomSheet(
-                          context,
-                          //cupertino time picker for the notification implementation
-                          CupertinoTimerPicker(
-                            mode: CupertinoTimerPickerMode.hms,
-                            minuteInterval: 1,
-                            secondInterval: 1,
-                            initialTimerDuration: initialtimer,
-                            onTimerDurationChanged: (Duration changedtimer) {
-                              state(() {
-                                initialtimer = changedtimer;
-                                time =
-                                    '${changedtimer.inHours} hrs ${changedtimer.inMinutes % 60} mins ${changedtimer.inSeconds % 60} secs';
-                              });
-                            },
-                          ));
-                    },
-                    child: time == null
-                        ? const Text(
-                            '  Select Time',
-                            style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w500,
-                              fontFamily: AppStrings.fontName,
-                            ),
-                          )
-                        : Text('    $time'),
-                  ),
+              TileContainer(
+                text: 'Notification',
+                iconHeader: Icons.notifications,
+                arrowFwd: Icons.arrow_forward_ios,
+                action: InkWell(
+                  onTap: () {
+                    bottomSheet(
+                        context,
+                        //cupertino time picker for the notification implementation
+                        CupertinoTimerPicker(
+                          mode: CupertinoTimerPickerMode.hms,
+                          minuteInterval: 1,
+                          secondInterval: 1,
+                          initialTimerDuration: initialtimer,
+                          onTimerDurationChanged: (Duration changedtimer) {
+                            state(() {
+                              initialtimer = changedtimer;
+                              time =
+                                  '${changedtimer.inHours} hrs ${changedtimer.inMinutes % 60} mins ${changedtimer.inSeconds % 60} secs';
+                            });
+                          },
+                        ));
+                  },
+                  child: time == null
+                      ? const Text(
+                          'Select Time',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500,
+                            fontFamily: AppStrings.fontName,
+                          ),
+                        )
+                      : Text(
+                          '$time',
+                          textAlign: TextAlign.center,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500,
+                            fontFamily: AppStrings.fontName,
+                          ),
+                        ),
                 ),
               ),
               gap(),
@@ -137,8 +144,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 arrowFwd: Icons.arrow_forward_ios,
                 action: Text(
                   'No',
+                  textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 15,
+                    fontSize: 20,
                     fontWeight: FontWeight.w500,
                     fontFamily: AppStrings.fontName,
                   ),
