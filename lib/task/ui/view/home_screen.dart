@@ -102,6 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   iconHeader: Icons.alarm,
                   arrowFwd: Icons.arrow_forward_ios,
                   action: TaskManagerTime(
+
                     controller: taskTimeController,
                     firstDate: DateTime(2000),
                     lastDate: DateTime(2100),
@@ -133,7 +134,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               state(() {
                                 initialtimer = changedtimer;
                                 time =
-                                    '${changedtimer.inHours} hrs ${changedtimer.inMinutes % 60} mins ${changedtimer.inSeconds % 60} secs';
+                                    '${changedtimer.inHours} hrs ${changedtimer.inMinutes % 60} mins';
                               });
                             },
                           ));
@@ -180,7 +181,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     AddTaskButton(
-                      onTap: () => navigatePop(context),
+                      onTap: () {
+                        navigatePop(context);
+                        },
                       text: "Cancel",
                       textColor: AppColors.black,
                       containerColor: AppColors.black,
@@ -190,17 +193,18 @@ class _HomeScreenState extends State<HomeScreen> {
                     AddTaskButton(
                       onTap: () {
                         if (_formKey.currentState!.validate()) {
-                          final task = AddTaskDB()
-                            ..taskDetails = taskDescriptionController.text
-                            ..taskDate = dateController.text
-                            ..taskTime = taskTimeController.text
-                            ..taskNotification = time!
-                            ..taskRepeat = "No";
-                          isarService.createTask(task);
+                          isarService.buildTask(
+                              taskDescriptionController:
+                                  taskDescriptionController.text,
+                              dateController: dateController.text,
+                              taskTimeController: taskTimeController.text,
+                              time: time!,
+                              repeat: "No");
                           dateController.clear();
                           taskTimeController.clear();
                           taskDescriptionController.clear();
                         }
+                        time == "";
                         navigatePop(context);
                       },
                       text: "Save task",

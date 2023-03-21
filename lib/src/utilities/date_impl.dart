@@ -618,6 +618,7 @@ class _DateTimePickerState extends FormFieldState<String> {
       errorFormatText: widget.errorFormatText,
       errorInvalidText: widget.errorInvalidText,
       //textDirection: widget.textDirection,
+
       locale: widget.locale,
       useRootNavigator: widget.useRootNavigator,
       routeSettings: widget.routeSettings,
@@ -674,7 +675,8 @@ class _DateTimePickerState extends FormFieldState<String> {
           : TimePickerEntryMode.dial,
       useRootNavigator: widget.useRootNavigator,
       routeSettings: widget.routeSettings,
-      builder: (BuildContext context, Widget? child) {
+      builder:
+          (BuildContext context, Widget? child) {
         return MediaQuery(
           data: MediaQuery.of(context)
               .copyWith(alwaysUse24HourFormat: widget.use24HourFormat),

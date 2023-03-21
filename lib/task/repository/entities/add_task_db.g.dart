@@ -27,18 +27,23 @@ const AddTaskDBSchema = CollectionSchema(
       name: r'taskDetails',
       type: IsarType.string,
     ),
-    r'taskNotification': PropertySchema(
+    r'taskName': PropertySchema(
       id: 2,
+      name: r'taskName',
+      type: IsarType.string,
+    ),
+    r'taskNotification': PropertySchema(
+      id: 3,
       name: r'taskNotification',
       type: IsarType.string,
     ),
     r'taskRepeat': PropertySchema(
-      id: 3,
+      id: 4,
       name: r'taskRepeat',
       type: IsarType.string,
     ),
     r'taskTime': PropertySchema(
-      id: 4,
+      id: 5,
       name: r'taskTime',
       type: IsarType.string,
     )
@@ -64,7 +69,13 @@ int _addTaskDBEstimateSize(
 ) {
   var bytesCount = offsets.last;
   bytesCount += 3 + object.taskDate.length * 3;
-  bytesCount += 3 + object.taskDetails.length * 3;
+  {
+    final value = object.taskDetails;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  bytesCount += 3 + object.taskName.length * 3;
   bytesCount += 3 + object.taskNotification.length * 3;
   bytesCount += 3 + object.taskRepeat.length * 3;
   bytesCount += 3 + object.taskTime.length * 3;
@@ -79,9 +90,10 @@ void _addTaskDBSerialize(
 ) {
   writer.writeString(offsets[0], object.taskDate);
   writer.writeString(offsets[1], object.taskDetails);
-  writer.writeString(offsets[2], object.taskNotification);
-  writer.writeString(offsets[3], object.taskRepeat);
-  writer.writeString(offsets[4], object.taskTime);
+  writer.writeString(offsets[2], object.taskName);
+  writer.writeString(offsets[3], object.taskNotification);
+  writer.writeString(offsets[4], object.taskRepeat);
+  writer.writeString(offsets[5], object.taskTime);
 }
 
 AddTaskDB _addTaskDBDeserialize(
@@ -93,10 +105,11 @@ AddTaskDB _addTaskDBDeserialize(
   final object = AddTaskDB();
   object.id = id;
   object.taskDate = reader.readString(offsets[0]);
-  object.taskDetails = reader.readString(offsets[1]);
-  object.taskNotification = reader.readString(offsets[2]);
-  object.taskRepeat = reader.readString(offsets[3]);
-  object.taskTime = reader.readString(offsets[4]);
+  object.taskDetails = reader.readStringOrNull(offsets[1]);
+  object.taskName = reader.readString(offsets[2]);
+  object.taskNotification = reader.readString(offsets[3]);
+  object.taskRepeat = reader.readString(offsets[4]);
+  object.taskTime = reader.readString(offsets[5]);
   return object;
 }
 
@@ -110,12 +123,14 @@ P _addTaskDBDeserializeProp<P>(
     case 0:
       return (reader.readString(offset)) as P;
     case 1:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 2:
       return (reader.readString(offset)) as P;
     case 3:
       return (reader.readString(offset)) as P;
     case 4:
+      return (reader.readString(offset)) as P;
+    case 5:
       return (reader.readString(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -397,8 +412,26 @@ extension AddTaskDBQueryFilter
     });
   }
 
+  QueryBuilder<AddTaskDB, AddTaskDB, QAfterFilterCondition>
+      taskDetailsIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'taskDetails',
+      ));
+    });
+  }
+
+  QueryBuilder<AddTaskDB, AddTaskDB, QAfterFilterCondition>
+      taskDetailsIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'taskDetails',
+      ));
+    });
+  }
+
   QueryBuilder<AddTaskDB, AddTaskDB, QAfterFilterCondition> taskDetailsEqualTo(
-    String value, {
+    String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -412,7 +445,7 @@ extension AddTaskDBQueryFilter
 
   QueryBuilder<AddTaskDB, AddTaskDB, QAfterFilterCondition>
       taskDetailsGreaterThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -427,7 +460,7 @@ extension AddTaskDBQueryFilter
   }
 
   QueryBuilder<AddTaskDB, AddTaskDB, QAfterFilterCondition> taskDetailsLessThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -442,8 +475,8 @@ extension AddTaskDBQueryFilter
   }
 
   QueryBuilder<AddTaskDB, AddTaskDB, QAfterFilterCondition> taskDetailsBetween(
-    String lower,
-    String upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -526,6 +559,137 @@ extension AddTaskDBQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'taskDetails',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<AddTaskDB, AddTaskDB, QAfterFilterCondition> taskNameEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'taskName',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<AddTaskDB, AddTaskDB, QAfterFilterCondition> taskNameGreaterThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'taskName',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<AddTaskDB, AddTaskDB, QAfterFilterCondition> taskNameLessThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'taskName',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<AddTaskDB, AddTaskDB, QAfterFilterCondition> taskNameBetween(
+    String lower,
+    String upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'taskName',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<AddTaskDB, AddTaskDB, QAfterFilterCondition> taskNameStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'taskName',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<AddTaskDB, AddTaskDB, QAfterFilterCondition> taskNameEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'taskName',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<AddTaskDB, AddTaskDB, QAfterFilterCondition> taskNameContains(
+      String value,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'taskName',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<AddTaskDB, AddTaskDB, QAfterFilterCondition> taskNameMatches(
+      String pattern,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'taskName',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<AddTaskDB, AddTaskDB, QAfterFilterCondition> taskNameIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'taskName',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<AddTaskDB, AddTaskDB, QAfterFilterCondition>
+      taskNameIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'taskName',
         value: '',
       ));
     });
@@ -964,6 +1128,18 @@ extension AddTaskDBQuerySortBy on QueryBuilder<AddTaskDB, AddTaskDB, QSortBy> {
     });
   }
 
+  QueryBuilder<AddTaskDB, AddTaskDB, QAfterSortBy> sortByTaskName() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'taskName', Sort.asc);
+    });
+  }
+
+  QueryBuilder<AddTaskDB, AddTaskDB, QAfterSortBy> sortByTaskNameDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'taskName', Sort.desc);
+    });
+  }
+
   QueryBuilder<AddTaskDB, AddTaskDB, QAfterSortBy> sortByTaskNotification() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'taskNotification', Sort.asc);
@@ -1040,6 +1216,18 @@ extension AddTaskDBQuerySortThenBy
     });
   }
 
+  QueryBuilder<AddTaskDB, AddTaskDB, QAfterSortBy> thenByTaskName() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'taskName', Sort.asc);
+    });
+  }
+
+  QueryBuilder<AddTaskDB, AddTaskDB, QAfterSortBy> thenByTaskNameDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'taskName', Sort.desc);
+    });
+  }
+
   QueryBuilder<AddTaskDB, AddTaskDB, QAfterSortBy> thenByTaskNotification() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'taskNotification', Sort.asc);
@@ -1094,6 +1282,13 @@ extension AddTaskDBQueryWhereDistinct
     });
   }
 
+  QueryBuilder<AddTaskDB, AddTaskDB, QDistinct> distinctByTaskName(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'taskName', caseSensitive: caseSensitive);
+    });
+  }
+
   QueryBuilder<AddTaskDB, AddTaskDB, QDistinct> distinctByTaskNotification(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -1131,9 +1326,15 @@ extension AddTaskDBQueryProperty
     });
   }
 
-  QueryBuilder<AddTaskDB, String, QQueryOperations> taskDetailsProperty() {
+  QueryBuilder<AddTaskDB, String?, QQueryOperations> taskDetailsProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'taskDetails');
+    });
+  }
+
+  QueryBuilder<AddTaskDB, String, QQueryOperations> taskNameProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'taskName');
     });
   }
 

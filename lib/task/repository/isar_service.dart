@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:isar/isar.dart';
 
 import 'entities/add_task_db.dart';
@@ -21,10 +22,28 @@ class IsarService {
     return Future.value(Isar.getInstance());
   }
 
-  Future<void> createTask(AddTaskDB newTask) async {
+  Future<void> createTask(
+    AddTaskDB newTask,
+  ) async {
     final isar = await db;
     // Insert or update tasks
     isar.writeTxnSync<int>(() => isar.addTaskDBs.putSync(newTask));
+  }
+
+  Future<void> buildTask({
+    required String taskDescriptionController,
+    required String dateController,
+    required String taskTimeController,
+    required String time,
+    required String repeat,
+  }) async {
+    final task = AddTaskDB()
+      ..taskDetails = taskDescriptionController
+      ..taskDate = dateController
+      ..taskTime = taskTimeController
+      ..taskNotification = time!
+      ..taskRepeat = repeat;
+    createTask(task);
   }
 
   Stream<List<AddTaskDB>> getAllTasks() async* {
@@ -32,9 +51,10 @@ class IsarService {
     yield* isar.addTaskDBs.where().watch(fireImmediately: true);
   }
 
-
   Future<void> cleanDb() async {
     final isar = await db;
     await isar.writeTxn(() => isar.clear());
   }
+
+  Future<void> deleteItem() async {}
 }
