@@ -13,6 +13,9 @@ class _HomeScreenState extends State<HomeScreen> {
   String? time;
   Duration initialtimer = const Duration();
   TextEditingController taskDescriptionController = TextEditingController();
+  TextEditingController taskTimeController = TextEditingController();
+  TextEditingController dateController = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
@@ -75,6 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 50,
               ),
               TaskManagerDateTime(
+                controller: dateController,
                 firstDate: DateTime(2000),
                 lastDate: DateTime(2100),
               ),
@@ -86,6 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 iconHeader: Icons.alarm,
                 arrowFwd: Icons.arrow_forward_ios,
                 action: TaskManagerTime(
+                  controller: taskTimeController,
                   firstDate: DateTime(2000),
                   lastDate: DateTime(2100),
                   type: TaskManagerTimePickerType.time,
