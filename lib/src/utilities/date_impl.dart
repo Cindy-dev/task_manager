@@ -161,24 +161,18 @@ class TaskManagerDateTime extends FormField<String> {
                 ..applyDefaults(
                   Theme.of(field.context).inputDecorationTheme,
                 );
-              // Container(
-              //   height: 60,
-              //   margin: const EdgeInsets.only(bottom: 10),
-              //   decoration: BoxDecoration(
-              //       color: AppColors.gray.withOpacity(0.3),
-              //       borderRadius: BorderRadius.circular(10),
-              //       border: Border.all(
-              //           width: 2, color: AppColors.gray.withOpacity(0.3))),
-              //   ),
-              // 3
-              //
               return TextField(
                 readOnly: true,
                 onTap: readOnly ? null : lfOnTap,
                 controller: loCtrl,
                 decoration: InputDecoration(
+                    errorStyle: const TextStyle(
+                      fontSize: 13,
+                      color: AppColors.red,
+                      fontFamily: AppStrings.fontName,
+                    ),
                     hintText: "Select a Date",
-                    hintStyle: TextStyle(
+                    hintStyle: const TextStyle(
                       fontSize: 13,
                       color: AppColors.black,
                       fontFamily: AppStrings.fontName,
@@ -193,9 +187,6 @@ class TaskManagerDateTime extends FormField<String> {
                         borderRadius: BorderRadius.circular(10),
                         borderSide: BorderSide(
                             width: 2, color: AppColors.gray.withOpacity(0.3)))),
-                //  loDecoration.copyWith(
-                //   errorText: field.errorText,
-                // ),
                 focusNode: focusNode,
                 keyboardType: TextInputType.datetime,
                 textInputAction: textInputAction,
@@ -207,7 +198,6 @@ class TaskManagerDateTime extends FormField<String> {
                 strutStyle: strutStyle,
                 textAlign: textAlign,
                 textAlignVertical: textAlignVertical,
-                //textDirection: textDirection,
                 textCapitalization: textCapitalization,
                 autofocus: autofocus,
                 toolbarOptions: toolbarOptions,

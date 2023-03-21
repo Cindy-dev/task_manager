@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:task_manager/task/repository/entities/add_task_db.dart';
+import 'package:task_manager/task/repository/isar_service.dart';
 import '../../../src/utilities/app_constants/app_colors.dart';
 import '../../../src/utilities/app_constants/app_strings.dart';
 
@@ -10,6 +12,7 @@ class TaskList extends StatefulWidget {
 }
 
 class _TaskListState extends State<TaskList> with TickerProviderStateMixin {
+  final isarService = IsarService();
 
   late AnimationController _animationController;
 
@@ -31,42 +34,66 @@ class _TaskListState extends State<TaskList> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return SlideTransition(
-      position: Tween<Offset>(
-        begin: const Offset(0, 1),
-        end: Offset.zero,
-      ).animate(_animationController),
-      child: Container(
-          margin: const EdgeInsets.all(16),
-          padding: const EdgeInsets.all(16),
-          width: double.infinity,
-          decoration: BoxDecoration(
-              color: AppColors.gray.withOpacity(0.5),
-              borderRadius: BorderRadius.circular(15)),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              Text(
-                "Text Uchechukwu",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
-                  fontFamily: AppStrings.fontName,
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                "Every 5 minutes",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w300,
-                  fontFamily: AppStrings.fontName,
-                ),
-              ),
-            ],
-          )),
+    return Expanded(
+      child: StreamBuilder<List<AddTaskDB>>(
+          stream: isarService.getAllTasks(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              final tasks = snapshot.data;
+              if (tasks!.isEmpty) {
+                return const Center(child: Text('No Task found'));
+              }
+              return ListView.builder(
+                itemCount: tasks.length,
+                itemBuilder: (context, index) {
+                  return SlideTransition(
+                    position: Tween<Offset>(
+                      begin: const Offset(0, 1),
+                      end: Offset.zero,
+                    ).animate(_animationController),
+                    child: Dismissible(
+                      key: const Key("dismiss"),
+                      onDismissed: 
+                      child: Container(
+                          margin: const EdgeInsets.all(16),
+                          padding: const EdgeInsets.all(16),
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                              color: AppColors.gray.withOpacity(0.5),
+                              borderRadius: BorderRadius.circular(15)),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                tasks[index].taskDetails,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600,
+                                  fontFamily: AppStrings.fontName,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                "Every ${tasks[index].taskNotification}",
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w300,
+                                  fontFamily: AppStrings.fontName,
+                                ),
+                              ),
+                            ],
+                          )),
+                    ),
+                  );
+                },
+              );
+            } else {
+              return const Center(child: CircularProgressIndicator());
+            }
+          }),
     );
   }
 }

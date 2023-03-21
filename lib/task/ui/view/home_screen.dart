@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
+import 'package:task_manager/src/utilities/device_navigation.dart';
+import 'package:task_manager/task/repository/entities/add_task_db.dart';
 import 'package:task_manager/task/ui/widgets/task_list.dart';
 import 'package:task_manager/task/utilities/task_strings/add_task_imports.dart';
+import '../../repository/isar_service.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -10,12 +13,13 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final isarService = IsarService();
+  final _formKey = GlobalKey<FormState>();
   String? time;
   Duration initialtimer = const Duration();
   TextEditingController taskDescriptionController = TextEditingController();
   TextEditingController taskTimeController = TextEditingController();
   TextEditingController dateController = TextEditingController();
-
 
   @override
   Widget build(BuildContext context) {
@@ -55,129 +59,160 @@ class _HomeScreenState extends State<HomeScreen> {
     return StatefulBuilder(
       builder: (BuildContext context, void Function(void Function()) state) {
         return Material(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              GestureDetector(
-                child: const Icon(
-                  Icons.horizontal_rule,
-                  size: 60,
-                  color: AppColors.gray,
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                GestureDetector(
+                  child: const Icon(
+                    Icons.horizontal_rule,
+                    size: 60,
+                    color: AppColors.gray,
+                  ),
                 ),
-              ),
-              const Text(
-                AddTaskStrings.heading,
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
-                  fontFamily: AppStrings.fontName,
-                ),
-              ),
-              const SizedBox(
-                height: 50,
-              ),
-              TaskManagerDateTime(
-                controller: dateController,
-                firstDate: DateTime(2000),
-                lastDate: DateTime(2100),
-              ),
-              gap(),
-              AddTextField(controller: taskDescriptionController),
-              gap(),
-              TileContainer(
-                text: 'Task Time',
-                iconHeader: Icons.alarm,
-                arrowFwd: Icons.arrow_forward_ios,
-                action: TaskManagerTime(
-                  controller: taskTimeController,
-                  firstDate: DateTime(2000),
-                  lastDate: DateTime(2100),
-                  type: TaskManagerTimePickerType.time,
-                ),
-              ),
-              gap(),
-              TileContainer(
-                text: 'Notification',
-                iconHeader: Icons.notifications,
-                arrowFwd: Icons.arrow_forward_ios,
-                action: InkWell(
-                  onTap: () {
-                    bottomSheet(
-                        context,
-                        //cupertino time picker for the notification implementation
-                        CupertinoTimerPicker(
-                          mode: CupertinoTimerPickerMode.hms,
-                          minuteInterval: 1,
-                          secondInterval: 1,
-                          initialTimerDuration: initialtimer,
-                          onTimerDurationChanged: (Duration changedtimer) {
-                            state(() {
-                              initialtimer = changedtimer;
-                              time =
-                                  '${changedtimer.inHours} hrs ${changedtimer.inMinutes % 60} mins ${changedtimer.inSeconds % 60} secs';
-                            });
-                          },
-                        ));
-                  },
-                  child: time == null
-                      ? const Text(
-                          'Select Time',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500,
-                            fontFamily: AppStrings.fontName,
-                          ),
-                        )
-                      : Text(
-                          '$time',
-                          textAlign: TextAlign.center,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500,
-                            fontFamily: AppStrings.fontName,
-                          ),
-                        ),
-                ),
-              ),
-              gap(),
-              const TileContainer(
-                text: 'Repeat',
-                iconHeader: Icons.repeat,
-                arrowFwd: Icons.arrow_forward_ios,
-                action: Text(
-                  'No',
-                  textAlign: TextAlign.center,
+                const Text(
+                  AddTaskStrings.heading,
                   style: TextStyle(
                     fontSize: 20,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w600,
                     fontFamily: AppStrings.fontName,
                   ),
                 ),
-              ),
-              gap(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  AddTaskButton(
-                    text: "Cancel",
-                    textColor: AppColors.black,
-                    containerColor: AppColors.black,
-                    containerColor2: AppColors.white,
+                const SizedBox(
+                  height: 50,
+                ),
+                TaskManagerDateTime(
+                  controller: dateController,
+                  firstDate: DateTime(2000),
+                  lastDate: DateTime(2100),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Task Date Should not be empty";
+                    }
+                    return null;
+                  },
+                ),
+                gap(),
+                AddTextField(controller: taskDescriptionController),
+                gap(),
+                TileContainer(
+                  text: 'Task Time',
+                  iconHeader: Icons.alarm,
+                  arrowFwd: Icons.arrow_forward_ios,
+                  action: TaskManagerTime(
+                    controller: taskTimeController,
+                    firstDate: DateTime(2000),
+                    lastDate: DateTime(2100),
+                    type: TaskManagerTimePickerType.time,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Please choose a task time";
+                      }
+                      return null;
+                    },
                   ),
-                  SizedBox(width: 10),
-                  AddTaskButton(
-                    text: "Save task",
-                    textColor: AppColors.white,
-                    containerColor: AppColors.black,
-                    containerColor2: AppColors.black,
+                ),
+                gap(),
+                TileContainer(
+                  text: 'Notification',
+                  iconHeader: Icons.notifications,
+                  arrowFwd: Icons.arrow_forward_ios,
+                  action: InkWell(
+                    onTap: () {
+                      bottomSheet(
+                          context,
+                          //cupertino time picker for the notification implementation
+                          CupertinoTimerPicker(
+                            mode: CupertinoTimerPickerMode.hms,
+                            minuteInterval: 1,
+                            secondInterval: 1,
+                            initialTimerDuration: initialtimer,
+                            onTimerDurationChanged: (Duration changedtimer) {
+                              state(() {
+                                initialtimer = changedtimer;
+                                time =
+                                    '${changedtimer.inHours} hrs ${changedtimer.inMinutes % 60} mins ${changedtimer.inSeconds % 60} secs';
+                              });
+                            },
+                          ));
+                    },
+                    child: time == null
+                        ? const Text(
+                            'Select Time',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                              fontFamily: AppStrings.fontName,
+                            ),
+                          )
+                        : Text(
+                            '$time',
+                            textAlign: TextAlign.center,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                              fontFamily: AppStrings.fontName,
+                            ),
+                          ),
                   ),
-                ],
-              ),
-              gap(),
-            ],
+                ),
+                gap(),
+                const TileContainer(
+                  text: 'Repeat',
+                  iconHeader: Icons.repeat,
+                  arrowFwd: Icons.arrow_forward_ios,
+                  action: Text(
+                    'No',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500,
+                      fontFamily: AppStrings.fontName,
+                    ),
+                  ),
+                ),
+                gap(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    AddTaskButton(
+                      onTap: () => navigatePop(context),
+                      text: "Cancel",
+                      textColor: AppColors.black,
+                      containerColor: AppColors.black,
+                      containerColor2: AppColors.white,
+                    ),
+                    const SizedBox(width: 10),
+                    AddTaskButton(
+                      onTap: () {
+                        if (_formKey.currentState!.validate()) {
+                          final task = AddTaskDB()
+                            ..taskDetails = taskDescriptionController.text
+                            ..taskDate = dateController.text
+                            ..taskTime = taskTimeController.text
+                            ..taskNotification = time!
+                            ..taskRepeat = "No";
+                          isarService.createTask(task);
+                          dateController.clear();
+                          taskTimeController.clear();
+                          taskDescriptionController.clear();
+                        }
+                        navigatePop(context);
+                      },
+                      text: "Save task",
+                      textColor: AppColors.white,
+                      containerColor: AppColors.black,
+                      containerColor2: AppColors.black,
+                    ),
+                  ],
+                ),
+                gap(),
+              ],
+            ),
           ),
         );
       },

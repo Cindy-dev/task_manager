@@ -20,6 +20,12 @@ class _AddTextFieldState extends State<AddTextField> {
         minLines: 10,
         maxLines: 40,
         cursorColor: AppColors.primaryColor,
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return "Task Description is not allowed to be empty";
+          }
+          return null;
+        },
         decoration: InputDecoration(
             filled: true,
             hintText: AddTaskStrings.hintText,
