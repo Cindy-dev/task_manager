@@ -12,23 +12,26 @@ class AddTaskButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      height: context.screenHeight() / 15,
-      width: context.screenWidth() / 2.5,
-      decoration: BoxDecoration(
-          color: containerColor2,
-          borderRadius: BorderRadius.circular(15),
-          border: Border.all(
-            color: containerColor,
-          )),
-      child: Text(
-        text,
-        style: TextStyle(
-            color: textColor,
-            fontSize: 25,
-            fontWeight: FontWeight.w700,
-            fontFamily: AppStrings.fontName),
+    return Expanded(
+      child: Container(
+        alignment: Alignment.center,
+        padding: const EdgeInsets.all(10),
+       // height: context.screenHeight() / 15,
+       // width: context.screenWidth() / 2.5,
+        decoration: BoxDecoration(
+            color: containerColor2,
+            borderRadius: BorderRadius.circular(15),
+            border: Border.all(
+              color: containerColor,
+            )),
+        child: Text(
+          text,
+          style: TextStyle(
+              color: textColor,
+              fontSize: 25,
+              fontWeight: FontWeight.w700,
+              fontFamily: AppStrings.fontName),
+        ),
       ),
     );
   }

@@ -20,7 +20,7 @@ class OnboardingScreen extends StatelessWidget {
         children: [
           Container(
             margin: EdgeInsets.only(
-                top: deviceHeight / 15, bottom: deviceHeight / 30),
+                top: deviceHeight / 15, bottom: deviceHeight / 15),
             alignment: Alignment.center,
             child: Image.asset(
               OnboardingStrings.onboardingAsset,
@@ -31,11 +31,11 @@ class OnboardingScreen extends StatelessWidget {
             OnboardingStrings.appName,
             style: TextStyle(
                 fontWeight: FontWeight.w700,
-                fontSize: 32,
+                fontSize: 50,
                 fontFamily: AppStrings.fontName),
           ),
           const SizedBox(
-            height: 8,
+            height: 15,
           ),
           const Padding(
             padding: EdgeInsets.only(left: 16, right: 16),
@@ -43,7 +43,7 @@ class OnboardingScreen extends StatelessWidget {
               OnboardingStrings.appHeader,
               textAlign: TextAlign.center,
               style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 17,
                   fontFamily: AppStrings.fontName,
                   fontWeight: FontWeight.w400),
             ),
@@ -52,7 +52,7 @@ class OnboardingScreen extends StatelessWidget {
           GestureDetector(
             onTap: () => navigatePush(context, const HomeScreen()),
             child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 16),
+              margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 15),
               width: double.infinity,
               height: context.screenHeight() / 14,
               alignment: Alignment.center,
@@ -69,7 +69,7 @@ class OnboardingScreen extends StatelessWidget {
               ),
             ),
           ),
-          const Spacer(),
+
         ],
       ),
     );

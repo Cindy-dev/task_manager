@@ -162,6 +162,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     containerColor: AppColors.black,
                     containerColor2: AppColors.white,
                   ),
+                  SizedBox(width: 10),
                   AddTaskButton(
                     text: "Save task",
                     textColor: AppColors.white,
