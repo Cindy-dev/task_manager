@@ -31,8 +31,7 @@ class IsarService {
   }
 
   Future<void> buildTask(
-  String taskDescriptionController,
-      {
+    String taskDescriptionController, {
     required String dateController,
     required String taskTimeController,
     required String time,
@@ -59,15 +58,11 @@ class IsarService {
     await isar.writeTxn(() => isar.clear());
   }
 
-  Future<void> deleteItem() async {
-    final isar = await db;
-    final collection = isar.addTaskDBs;
-    final item = collection.delete(1);
-    print(item);
-    //print(task.taskName);
-   // print(task.id);
-   // final itemIdToDelete = task.id; // or any user-selected id
-  //  print(itemIdToDelete);
-   // await collection.delete(itemIdToDelete);
+  Future<void> deleteItem(int id) async {
+    final isar = await openIsar();
+    final itemIdToDelete = id; // user-selected id
+    await isar.writeTxn(() async {
+      await isar.addTaskDBs.delete(itemIdToDelete); // delete
+    });
   }
 }

@@ -60,9 +60,7 @@ class _TaskListState extends State<TaskList> with TickerProviderStateMixin {
                         ),
                         key: ValueKey<AddTaskDB>(tasks[index]),
                         onDismissed: (DismissDirection direction) {
-                          setState(() {
-                            isarService.deleteItem();
-                          });
+                          isarService.deleteItem(tasks[index].id);
                         },
                         child: Container(
                             margin: const EdgeInsets.all(16),
@@ -75,7 +73,7 @@ class _TaskListState extends State<TaskList> with TickerProviderStateMixin {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  tasks[index].id.toString(),
+                                  tasks[index].taskName!,
                                   overflow: TextOverflow.ellipsis,
                                   style: const TextStyle(
                                     fontSize: 20,
