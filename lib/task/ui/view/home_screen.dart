@@ -15,7 +15,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final isarService = IsarService();
   final _formKey = GlobalKey<FormState>();
-  String? time;
+  String? time = "";
   Duration initialtimer = const Duration();
   TextEditingController nameController = TextEditingController();
   TextEditingController taskDescriptionController = TextEditingController();
@@ -36,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
           Container(
             margin: const EdgeInsets.all(16),
             child: const Text(
-              HomeStrings.priority,
+              "Tasks",
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w600,
@@ -157,7 +157,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             },
                           ));
                     },
-                    child: time == null
+                    child: time == ""
                         ? const Text(
                             'Select Time',
                             textAlign: TextAlign.center,
@@ -221,7 +221,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           taskTimeController.clear();
                           taskDescriptionController.clear();
                         }
-                        time == "";
+                        time = "";
                         navigatePop(context);
                       },
                       text: "Save task",
