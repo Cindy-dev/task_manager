@@ -30,18 +30,21 @@ class IsarService {
     isar.writeTxnSync<int>(() => isar.addTaskDBs.putSync(newTask));
   }
 
-  Future<void> buildTask({
-    required String taskDescriptionController,
+  Future<void> buildTask(
+  String taskDescriptionController,
+      {
     required String dateController,
     required String taskTimeController,
     required String time,
     required String repeat,
+    required String nameController,
   }) async {
     final task = AddTaskDB()
       ..taskDetails = taskDescriptionController
       ..taskDate = dateController
       ..taskTime = taskTimeController
       ..taskNotification = time!
+      ..taskName = nameController
       ..taskRepeat = repeat;
     createTask(task);
   }
@@ -56,5 +59,15 @@ class IsarService {
     await isar.writeTxn(() => isar.clear());
   }
 
-  Future<void> deleteItem() async {}
+  Future<void> deleteItem() async {
+    final isar = await db;
+    final collection = isar.addTaskDBs;
+    final item = collection.delete(1);
+    print(item);
+    //print(task.taskName);
+   // print(task.id);
+   // final itemIdToDelete = task.id; // or any user-selected id
+  //  print(itemIdToDelete);
+   // await collection.delete(itemIdToDelete);
+  }
 }

@@ -17,6 +17,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final _formKey = GlobalKey<FormState>();
   String? time;
   Duration initialtimer = const Duration();
+  TextEditingController nameController = TextEditingController();
   TextEditingController taskDescriptionController = TextEditingController();
   TextEditingController taskTimeController = TextEditingController();
   TextEditingController dateController = TextEditingController();
@@ -95,14 +96,31 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                 ),
                 gap(),
-                AddTextField(controller: taskDescriptionController),
+                AddTextField(
+                  controller: nameController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Task Name cannot be empty";
+                    }
+                    return null;
+                  },
+                  minLines: 1,
+                  maxLines: 2,
+                  hintText: "Input task name",
+                ),
+                gap(),
+                AddTextField(
+                  controller: taskDescriptionController,
+                  minLines: 10,
+                  maxLines: 40,
+                  hintText: AddTaskStrings.hintText,
+                ),
                 gap(),
                 TileContainer(
                   text: 'Task Time',
                   iconHeader: Icons.alarm,
                   arrowFwd: Icons.arrow_forward_ios,
                   action: TaskManagerTime(
-
                     controller: taskTimeController,
                     firstDate: DateTime(2000),
                     lastDate: DateTime(2100),
@@ -183,7 +201,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     AddTaskButton(
                       onTap: () {
                         navigatePop(context);
-                        },
+                      },
                       text: "Cancel",
                       textColor: AppColors.black,
                       containerColor: AppColors.black,
@@ -193,12 +211,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     AddTaskButton(
                       onTap: () {
                         if (_formKey.currentState!.validate()) {
-                          isarService.buildTask(
-                              taskDescriptionController:
-                                  taskDescriptionController.text,
+                          isarService.buildTask(taskDescriptionController.text,
                               dateController: dateController.text,
                               taskTimeController: taskTimeController.text,
                               time: time!,
+                              nameController: nameController.text,
                               repeat: "No");
                           dateController.clear();
                           taskTimeController.clear();

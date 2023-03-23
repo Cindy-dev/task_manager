@@ -75,7 +75,7 @@ class _TaskListState extends State<TaskList> with TickerProviderStateMixin {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  tasks[index].taskDetails,
+                                  tasks[index].id.toString(),
                                   overflow: TextOverflow.ellipsis,
                                   style: const TextStyle(
                                     fontSize: 20,

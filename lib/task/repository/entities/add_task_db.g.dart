@@ -68,17 +68,42 @@ int _addTaskDBEstimateSize(
   Map<Type, List<int>> allOffsets,
 ) {
   var bytesCount = offsets.last;
-  bytesCount += 3 + object.taskDate.length * 3;
+  {
+    final value = object.taskDate;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
   {
     final value = object.taskDetails;
     if (value != null) {
       bytesCount += 3 + value.length * 3;
     }
   }
-  bytesCount += 3 + object.taskName.length * 3;
-  bytesCount += 3 + object.taskNotification.length * 3;
-  bytesCount += 3 + object.taskRepeat.length * 3;
-  bytesCount += 3 + object.taskTime.length * 3;
+  {
+    final value = object.taskName;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  {
+    final value = object.taskNotification;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  {
+    final value = object.taskRepeat;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  {
+    final value = object.taskTime;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
   return bytesCount;
 }
 
@@ -104,12 +129,12 @@ AddTaskDB _addTaskDBDeserialize(
 ) {
   final object = AddTaskDB();
   object.id = id;
-  object.taskDate = reader.readString(offsets[0]);
+  object.taskDate = reader.readStringOrNull(offsets[0]);
   object.taskDetails = reader.readStringOrNull(offsets[1]);
-  object.taskName = reader.readString(offsets[2]);
-  object.taskNotification = reader.readString(offsets[3]);
-  object.taskRepeat = reader.readString(offsets[4]);
-  object.taskTime = reader.readString(offsets[5]);
+  object.taskName = reader.readStringOrNull(offsets[2]);
+  object.taskNotification = reader.readStringOrNull(offsets[3]);
+  object.taskRepeat = reader.readStringOrNull(offsets[4]);
+  object.taskTime = reader.readStringOrNull(offsets[5]);
   return object;
 }
 
@@ -121,17 +146,17 @@ P _addTaskDBDeserializeProp<P>(
 ) {
   switch (propertyId) {
     case 0:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 1:
       return (reader.readStringOrNull(offset)) as P;
     case 2:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 3:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 4:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 5:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
   }
@@ -281,8 +306,25 @@ extension AddTaskDBQueryFilter
     });
   }
 
+  QueryBuilder<AddTaskDB, AddTaskDB, QAfterFilterCondition> taskDateIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'taskDate',
+      ));
+    });
+  }
+
+  QueryBuilder<AddTaskDB, AddTaskDB, QAfterFilterCondition>
+      taskDateIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'taskDate',
+      ));
+    });
+  }
+
   QueryBuilder<AddTaskDB, AddTaskDB, QAfterFilterCondition> taskDateEqualTo(
-    String value, {
+    String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -295,7 +337,7 @@ extension AddTaskDBQueryFilter
   }
 
   QueryBuilder<AddTaskDB, AddTaskDB, QAfterFilterCondition> taskDateGreaterThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -310,7 +352,7 @@ extension AddTaskDBQueryFilter
   }
 
   QueryBuilder<AddTaskDB, AddTaskDB, QAfterFilterCondition> taskDateLessThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -325,8 +367,8 @@ extension AddTaskDBQueryFilter
   }
 
   QueryBuilder<AddTaskDB, AddTaskDB, QAfterFilterCondition> taskDateBetween(
-    String lower,
-    String upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -564,8 +606,25 @@ extension AddTaskDBQueryFilter
     });
   }
 
+  QueryBuilder<AddTaskDB, AddTaskDB, QAfterFilterCondition> taskNameIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'taskName',
+      ));
+    });
+  }
+
+  QueryBuilder<AddTaskDB, AddTaskDB, QAfterFilterCondition>
+      taskNameIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'taskName',
+      ));
+    });
+  }
+
   QueryBuilder<AddTaskDB, AddTaskDB, QAfterFilterCondition> taskNameEqualTo(
-    String value, {
+    String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -578,7 +637,7 @@ extension AddTaskDBQueryFilter
   }
 
   QueryBuilder<AddTaskDB, AddTaskDB, QAfterFilterCondition> taskNameGreaterThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -593,7 +652,7 @@ extension AddTaskDBQueryFilter
   }
 
   QueryBuilder<AddTaskDB, AddTaskDB, QAfterFilterCondition> taskNameLessThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -608,8 +667,8 @@ extension AddTaskDBQueryFilter
   }
 
   QueryBuilder<AddTaskDB, AddTaskDB, QAfterFilterCondition> taskNameBetween(
-    String lower,
-    String upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -696,8 +755,26 @@ extension AddTaskDBQueryFilter
   }
 
   QueryBuilder<AddTaskDB, AddTaskDB, QAfterFilterCondition>
+      taskNotificationIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'taskNotification',
+      ));
+    });
+  }
+
+  QueryBuilder<AddTaskDB, AddTaskDB, QAfterFilterCondition>
+      taskNotificationIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'taskNotification',
+      ));
+    });
+  }
+
+  QueryBuilder<AddTaskDB, AddTaskDB, QAfterFilterCondition>
       taskNotificationEqualTo(
-    String value, {
+    String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -711,7 +788,7 @@ extension AddTaskDBQueryFilter
 
   QueryBuilder<AddTaskDB, AddTaskDB, QAfterFilterCondition>
       taskNotificationGreaterThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -727,7 +804,7 @@ extension AddTaskDBQueryFilter
 
   QueryBuilder<AddTaskDB, AddTaskDB, QAfterFilterCondition>
       taskNotificationLessThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -743,8 +820,8 @@ extension AddTaskDBQueryFilter
 
   QueryBuilder<AddTaskDB, AddTaskDB, QAfterFilterCondition>
       taskNotificationBetween(
-    String lower,
-    String upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -831,8 +908,25 @@ extension AddTaskDBQueryFilter
     });
   }
 
+  QueryBuilder<AddTaskDB, AddTaskDB, QAfterFilterCondition> taskRepeatIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'taskRepeat',
+      ));
+    });
+  }
+
+  QueryBuilder<AddTaskDB, AddTaskDB, QAfterFilterCondition>
+      taskRepeatIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'taskRepeat',
+      ));
+    });
+  }
+
   QueryBuilder<AddTaskDB, AddTaskDB, QAfterFilterCondition> taskRepeatEqualTo(
-    String value, {
+    String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -846,7 +940,7 @@ extension AddTaskDBQueryFilter
 
   QueryBuilder<AddTaskDB, AddTaskDB, QAfterFilterCondition>
       taskRepeatGreaterThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -861,7 +955,7 @@ extension AddTaskDBQueryFilter
   }
 
   QueryBuilder<AddTaskDB, AddTaskDB, QAfterFilterCondition> taskRepeatLessThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -876,8 +970,8 @@ extension AddTaskDBQueryFilter
   }
 
   QueryBuilder<AddTaskDB, AddTaskDB, QAfterFilterCondition> taskRepeatBetween(
-    String lower,
-    String upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -965,8 +1059,25 @@ extension AddTaskDBQueryFilter
     });
   }
 
+  QueryBuilder<AddTaskDB, AddTaskDB, QAfterFilterCondition> taskTimeIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'taskTime',
+      ));
+    });
+  }
+
+  QueryBuilder<AddTaskDB, AddTaskDB, QAfterFilterCondition>
+      taskTimeIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'taskTime',
+      ));
+    });
+  }
+
   QueryBuilder<AddTaskDB, AddTaskDB, QAfterFilterCondition> taskTimeEqualTo(
-    String value, {
+    String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -979,7 +1090,7 @@ extension AddTaskDBQueryFilter
   }
 
   QueryBuilder<AddTaskDB, AddTaskDB, QAfterFilterCondition> taskTimeGreaterThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -994,7 +1105,7 @@ extension AddTaskDBQueryFilter
   }
 
   QueryBuilder<AddTaskDB, AddTaskDB, QAfterFilterCondition> taskTimeLessThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -1009,8 +1120,8 @@ extension AddTaskDBQueryFilter
   }
 
   QueryBuilder<AddTaskDB, AddTaskDB, QAfterFilterCondition> taskTimeBetween(
-    String lower,
-    String upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -1320,7 +1431,7 @@ extension AddTaskDBQueryProperty
     });
   }
 
-  QueryBuilder<AddTaskDB, String, QQueryOperations> taskDateProperty() {
+  QueryBuilder<AddTaskDB, String?, QQueryOperations> taskDateProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'taskDate');
     });
@@ -1332,25 +1443,26 @@ extension AddTaskDBQueryProperty
     });
   }
 
-  QueryBuilder<AddTaskDB, String, QQueryOperations> taskNameProperty() {
+  QueryBuilder<AddTaskDB, String?, QQueryOperations> taskNameProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'taskName');
     });
   }
 
-  QueryBuilder<AddTaskDB, String, QQueryOperations> taskNotificationProperty() {
+  QueryBuilder<AddTaskDB, String?, QQueryOperations>
+      taskNotificationProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'taskNotification');
     });
   }
 
-  QueryBuilder<AddTaskDB, String, QQueryOperations> taskRepeatProperty() {
+  QueryBuilder<AddTaskDB, String?, QQueryOperations> taskRepeatProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'taskRepeat');
     });
   }
 
-  QueryBuilder<AddTaskDB, String, QQueryOperations> taskTimeProperty() {
+  QueryBuilder<AddTaskDB, String?, QQueryOperations> taskTimeProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'taskTime');
     });

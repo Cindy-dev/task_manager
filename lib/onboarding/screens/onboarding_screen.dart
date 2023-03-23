@@ -20,7 +20,7 @@ class OnboardingScreen extends StatelessWidget {
         children: [
           Container(
             margin: EdgeInsets.only(
-                top: deviceHeight / 15, bottom: deviceHeight / 15),
+                top: deviceHeight / 15, bottom: deviceHeight / 25),
             alignment: Alignment.center,
             child: Image.asset(
               OnboardingStrings.onboardingAsset,
@@ -34,8 +34,8 @@ class OnboardingScreen extends StatelessWidget {
                 fontSize: 50,
                 fontFamily: AppStrings.fontName),
           ),
-          const SizedBox(
-            height: 15,
+          SizedBox(
+            height: deviceHeight / 79,
           ),
           const Padding(
             padding: EdgeInsets.only(left: 16, right: 16),
@@ -69,7 +69,6 @@ class OnboardingScreen extends StatelessWidget {
               ),
             ),
           ),
-
         ],
       ),
     );

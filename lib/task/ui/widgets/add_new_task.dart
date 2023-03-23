@@ -5,8 +5,18 @@ import '../../utilities/task_strings/add_task_strings.dart';
 
 // implementing a text field widget to write task
 class AddTextField extends StatefulWidget {
+  final int minLines;
+  final int maxLines;
+  final String? Function(String?)? validator;
   final TextEditingController controller;
-  const AddTextField({Key? key, required this.controller}) : super(key: key);
+  final String hintText;
+  const AddTextField(
+      {Key? key,
+      required this.controller,
+      required this.minLines,
+      required this.maxLines,
+      this.validator, required this.hintText})
+      : super(key: key);
 
   @override
   State<AddTextField> createState() => _AddTextFieldState();
@@ -17,18 +27,13 @@ class _AddTextFieldState extends State<AddTextField> {
   Widget build(BuildContext context) {
     return TextFormField(
         controller: widget.controller,
-        minLines: 10,
-        maxLines: 40,
+        minLines: widget.minLines,
+        maxLines: widget.maxLines,
         cursorColor: AppColors.primaryColor,
-        validator: (value) {
-          if (value == null || value.isEmpty) {
-            return "Task Description is not allowed to be empty";
-          }
-          return null;
-        },
+        validator: widget.validator,
         decoration: InputDecoration(
             filled: true,
-            hintText: AddTaskStrings.hintText,
+            hintText: widget.hintText,
             fillColor: AppColors.gray.withOpacity(0.3),
             focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
