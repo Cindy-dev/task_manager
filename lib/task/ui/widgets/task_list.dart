@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:task_manager/src/utilities/device_navigation.dart';
 import 'package:task_manager/task/repository/entities/add_task_db.dart';
 import 'package:task_manager/task/repository/isar_service.dart';
+import 'package:task_manager/task/ui/view/task_details.dart';
 import '../../../src/utilities/app_constants/app_colors.dart';
 import '../../../src/utilities/app_constants/app_strings.dart';
 
@@ -62,38 +64,41 @@ class _TaskListState extends State<TaskList> with TickerProviderStateMixin {
                         onDismissed: (DismissDirection direction) {
                           isarService.deleteItem(tasks[index].id);
                         },
-                        child: Container(
-                            margin: const EdgeInsets.all(16),
-                            padding: const EdgeInsets.all(16),
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                                color: AppColors.gray.withOpacity(0.5),
-                                borderRadius: BorderRadius.circular(15)),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  tasks[index].taskName!,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: const TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w600,
-                                    fontFamily: AppStrings.fontName,
+                        child: GestureDetector(
+                          onTap: ()=> navigatePush(context, const TaskDetailsScreen()),
+                          child: Container(
+                              margin: const EdgeInsets.all(16),
+                              padding: const EdgeInsets.all(16),
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                  color: AppColors.gray.withOpacity(0.5),
+                                  borderRadius: BorderRadius.circular(15)),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    tasks[index].taskName!,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w600,
+                                      fontFamily: AppStrings.fontName,
+                                    ),
                                   ),
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                Text(
-                                  "Every ${tasks[index].taskNotification}",
-                                  style: const TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w300,
-                                    fontFamily: AppStrings.fontName,
+                                  const SizedBox(
+                                    height: 10,
                                   ),
-                                ),
-                              ],
-                            )),
+                                  Text(
+                                    "Every ${tasks[index].taskNotification}",
+                                    style: const TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w300,
+                                      fontFamily: AppStrings.fontName,
+                                    ),
+                                  ),
+                                ],
+                              )),
+                        ),
                       ),
                     );
                   },
