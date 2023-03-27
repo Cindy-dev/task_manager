@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sliding_sheet/sliding_sheet.dart';
 import '../../../src/utilities/app_constants/app_colors.dart';
-import '../../utilities/task_strings/add_task_strings.dart';
 
 // implementing a text field widget to write task
 class AddTextField extends StatefulWidget {

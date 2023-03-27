@@ -65,7 +65,13 @@ class _TaskListState extends State<TaskList> with TickerProviderStateMixin {
                           isarService.deleteItem(tasks[index].id);
                         },
                         child: GestureDetector(
-                          onTap: ()=> navigatePush(context, const TaskDetailsScreen()),
+                          onTap: () => navigatePush(
+                              context,
+                              TaskDetailsScreen(
+                                taskName: tasks[index].taskName.toString(),
+                                taskDate: tasks[index].taskDate.toString(),
+                                taskDesc: tasks[index].taskDetails.toString(),
+                              )),
                           child: Container(
                               margin: const EdgeInsets.all(16),
                               padding: const EdgeInsets.all(16),
