@@ -21,84 +21,101 @@ class TaskDetailsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.primaryColor,
+        actions: [
+          IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.delete_rounded,
+                color: AppColors.red,
+                size: 30,
+              )),
+          const SizedBox(
+            width: 10,
+          )
+        ],
       ),
-      body: Container(
-        margin: EdgeInsets.only(
-          left: 20,
-          top: context.screenHeight() / 40,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                const Text(
-                  "Task Title:",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                    fontFamily: AppStrings.fontName,
+      body: SingleChildScrollView(
+        child: Container(
+          margin:
+              const EdgeInsets.only(left: 20, right: 20, top: 30, bottom: 30),
+          padding: const EdgeInsets.all(25),
+          decoration: BoxDecoration(
+              color: AppColors.primaryColor,
+              borderRadius: BorderRadius.circular(50)),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  const Text(
+                    "Task Title:",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: AppStrings.fontName,
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                Text(
-                  taskName,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w400,
-                    fontFamily: AppStrings.fontName,
+                  const SizedBox(
+                    width: 10,
                   ),
-                ),
-              ],
-            ),
-            SizedBox(height: context.screenHeight() / 40),
-            Row(
-              children: [
-                const Text(
-                  "Task Date:",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                    fontFamily: AppStrings.fontName,
+                  Text(
+                    taskName,
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: AppStrings.fontName,
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                Text(
-                  date.toString(),
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w400,
-                    fontFamily: AppStrings.fontName,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            const Text(
-              "Task Description:",
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
-                fontFamily: AppStrings.fontName,
+                ],
               ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Text(
-              taskDesc,
-              style: const TextStyle(
-                fontWeight: FontWeight.w400,
-                fontFamily: AppStrings.fontName,
+              SizedBox(height: context.screenHeight() / 40),
+              Row(
+                children: [
+                  const Text(
+                    "Task Date:",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: AppStrings.fontName,
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    date.toString(),
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: AppStrings.fontName,
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ],
+              const SizedBox(
+                height: 20,
+              ),
+              const Text(
+                "Task Description:",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                  fontFamily: AppStrings.fontName,
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Text(
+                taskDesc,
+                style: const TextStyle(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 20,
+                  fontFamily: AppStrings.fontName,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
