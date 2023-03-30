@@ -217,6 +217,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               time: time!,
                               nameController: nameController.text,
                               repeat: "No");
+                          nameController.clear();
                           dateController.clear();
                           taskTimeController.clear();
                           taskDescriptionController.clear();

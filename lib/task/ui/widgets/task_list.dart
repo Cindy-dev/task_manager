@@ -57,9 +57,20 @@ class _TaskListState extends State<TaskList> with TickerProviderStateMixin {
                         end: Offset.zero,
                       ).animate(_animationController),
                       child: Dismissible(
-                        background: Container(
-                          color: AppColors.red,
+                        secondaryBackground: Container(
+                          margin: const EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                              color: Colors.red,
+                              borderRadius: BorderRadius.circular(15)),
+                          child: const Align(
+                            alignment: Alignment.centerRight,
+                            child: Padding(
+                              padding: EdgeInsets.only(right: 16),
+                              child: Icon(Icons.delete),
+                            ),
+                          ),
                         ),
+                        background: Container(),
                         key: ValueKey<AddTaskDB>(tasks[index]),
                         onDismissed: (DismissDirection direction) {
                           isarService.deleteItem(tasks[index].id);
