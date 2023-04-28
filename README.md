@@ -1,16 +1,26 @@
-# task_manager
 
-A new Flutter project.
+A Flutter app to add and view task in a database.
 
-## Getting Started
+## ✨ Features
 
-This project is a starting point for a Flutter application.
+- [x] View available Task.
+- [x] Add a specific Task to the database.
+- [x] Delete Task from database.
 
-A few resources to get you started if this is your first Flutter project:
+## 🔌 Plugins
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+| Name                                                          | Usage                                               |
+| -------------------------------------------------------       | --------------------------------------------------- | |
+| [isar](https://pub.dev/packages/isar)             | Database
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<p align="center">
+  <img src="asset\images\screenshot\onboard.png" width="400">
+  <img src="asset\images\screenshot\home.png" width="400">
+  <img src="asset\images\screenshot\add.png" width="400">
+  <img src="asset\images\screenshot\t.png" width="400">
+ </p>
+
+## 🤓 Author(s)
+**Cindy dev**
+[Twitter Follow] <a href= "https://twitter.com/cindyDev_"> Click to follow <a/>
+

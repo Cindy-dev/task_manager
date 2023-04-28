@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:task_manager/src/utilities/device_navigation.dart';
-import 'package:task_manager/task/repository/entities/add_task_db.dart';
 import 'package:task_manager/task/ui/widgets/task_list.dart';
 import 'package:task_manager/task/utilities/task_strings/add_task_imports.dart';
 import '../../repository/isar_service.dart';
