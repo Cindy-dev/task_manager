@@ -9,9 +9,8 @@ A Flutter app to add and view task in a database.
 
 ## 🔌 Plugins
 
-| Name                                                          | Usage                                               |
-| -------------------------------------------------------       | --------------------------------------------------- | |
-| [isar](https://pub.dev/packages/isar)             | Database
+| Name                                          |        Usage    ---------------------------------------------------------------------------------
+| [isar](https://pub.dev/packages/isar)         |       Database
 
 <p align="center">
   <img src="asset\images\screenshot\onboard.png" width="400">
